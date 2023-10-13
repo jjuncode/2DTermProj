@@ -8,6 +8,9 @@ class Player:
     def __init__(self):
         self.pos = Pos()
         self.speed = 500
+        self.dir = 1
+
+        self.state = StateMachine(self)
 
         # animation
         self.cur_ani = 0
@@ -44,3 +47,24 @@ class Player:
         self.ani.update(self.cur_ani,self.ani_reset)
         self.ani_reset = False
 
+class Idle:
+    @staticmethod
+    def update(_instance):
+        pass
+
+    @staticmethod
+    def render(_instance):
+        pass
+
+
+
+class StateMachine:
+    def __init__(self,_instance):
+        self.instance = _instance
+        self.cur_state = Idle
+
+    def update(self):
+        self.cur_state.update(self.instance)
+
+    def render(self):
+        self.cur_state.render(self.instance)
