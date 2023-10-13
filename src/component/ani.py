@@ -17,7 +17,7 @@ class Ani:
         self.acc_time =0.0  # 누적시간
 
     def render(self):
-        self.image.clip_draw(self.cur_frame*128,self.cur_ani*64,128,64,50,50)
+        self.image.clip_draw(self.cur_frame*128,self.cur_ani*64,128,64,400,400, 500,400)
 
     def update(self):
         self.acc_time += TimeMgr.GetDt()
@@ -25,4 +25,3 @@ class Ani:
         if (self.acc_time > self.act_time ):
             self.acc_time = 0
             self.cur_frame = ( self.cur_frame +1 ) % 8
-            print(self.cur_frame)

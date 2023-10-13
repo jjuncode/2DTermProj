@@ -1,5 +1,7 @@
 from src.struct.struct import Pos
 from src.component.ani import Ani
+from src.mgr.KeyMgr import KeyMgr
+from pico2d import SDLK_a,SDLK_d
 
 class Player:
     def __init__(self):
@@ -11,3 +13,6 @@ class Player:
 
     def update(self):
         self.ani.update()
+        if KeyMgr.GetKey(SDLK_a) == "TAP": print(" A : TAP")
+        elif KeyMgr.GetKey(SDLK_a) == "HOLD" : print(" A: HOLD")
+
