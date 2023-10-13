@@ -1,8 +1,4 @@
 from pico2d import *
-import ctypes
-
-def is_key_pressed(key_code):
-    return ctypes.windll.user32.GetAsyncKeyState(key_code) != 0
 class KeyMgr:
     mgr = None
     key = { i:"NONE" for i in range(SDLK_a, SDLK_z+1)}
@@ -13,6 +9,7 @@ class KeyMgr:
             return cls.mgr
 
     def __init__(self):
+        self.key[SDLK_LSHIFT] = "NONE"
         pass
     def update(self):
         event = get_events()
@@ -25,12 +22,11 @@ class KeyMgr:
                 if self.key[e.key] == "NONE":
                     self.key[e.key] = "TAP" # TAP처리 됬으면 끝
                     continue
-
+                print(self.key[e.key])
 
             elif e.type == SDL_KEYUP:
                 self.key[e.key] = "NONE"
                 print(self.key[e.key])
-                print("key up!!!!!!!!!!!!!!!!!!!!!!")
 
             # HOLD 처리
             for _key,_value in self.key.items():
