@@ -20,10 +20,12 @@ class Ani:
         self.acc_time =0.0  # 누적시간
 
     def render(self,pos):
-        self.image.clip_draw(self.cur_frame*self.offset_x[self.cur_ani]
-                             ,sum(self.offset_y[:self.cur_ani])
-                             ,self.offset_x[self.cur_ani],self.offset_y[self.cur_ani]
-                             ,pos.x,pos.y, 500,400)
+        self.image.clip_draw(self.cur_frame*self.offset_x[self.cur_ani] # x
+                             ,sum(self.offset_y[:self.cur_ani])         # y
+                             ,self.offset_x[self.cur_ani],self.offset_y[self.cur_ani]    # offset
+                             ,pos.x,pos.y   # pos
+                             ,self.offset_x[self.cur_ani] * 4       # size_x
+                             ,self.offset_y[self.cur_ani] * 4)      # size_y
 
     def update(self,_cur_ani,_reset):
         self.acc_time += TimeMgr.GetDt()
