@@ -1,3 +1,4 @@
+import pico2d
 from pico2d import load_image
 
 def CreatePath(_path):
@@ -11,4 +12,4 @@ class Ani:
         self.image = load_image(CreatePath(_path))
 
     def render(self):
-        self.image.draw_now(self.image,50,50)
+        self.image.draw(50,50)
