@@ -14,7 +14,7 @@ class Ani:
 
         self.act_time = 0.1 # 프레임 건너는 시간
 
-        self.acc_time =0.0
+        self.acc_time =0.0  # 누적시간
 
     def render(self):
         self.image.clip_draw(self.cur_frame*128,self.cur_ani*64,128,64,50,50)

@@ -9,10 +9,13 @@ class ObjMgr:
             return cls.mgr
 
     def __init__(self):
-        self.player = Player()
+        self.obj = []
+        self.obj.append(Player())
 
     def update(self):
-        self.player.update()
+        for obj in self.obj:
+            obj.update()
 
     def render(self):
-        self.player.render()
+        for obj in self.obj:
+            obj.render()
