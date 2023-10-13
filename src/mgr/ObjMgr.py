@@ -5,7 +5,7 @@ class ObjMgr:
         self.player = Player()
 
     def update(self):
-        pass
+        self.player.update()
 
     def render(self):
         self.player.render()

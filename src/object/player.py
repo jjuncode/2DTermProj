@@ -8,3 +8,6 @@ class Player:
 
     def render(self):
         self.ani.render()
+
+    def update(self):
+        self.ani.update()
