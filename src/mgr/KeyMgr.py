@@ -36,4 +36,5 @@ class KeyMgr:
 
     @staticmethod
     def GetKey(_key):
+        if _key not in KeyMgr.key: KeyMgr.key[_key] = "NONE"
         return KeyMgr.key[_key]

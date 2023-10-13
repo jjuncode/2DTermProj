@@ -9,7 +9,7 @@ class Player:
         self.pos = Pos()
         self.speed = 500
 
-        self.ani = Ani("Attacks.png", [])
+        self.ani = Ani("Character.png", [7], 200,200)
 
     def render(self):
         self.ani.render(self.pos)

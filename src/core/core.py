@@ -1,10 +1,11 @@
 from src.mgr.ObjMgr import ObjMgr
-from pico2d import open_canvas, update_canvas,clear_canvas
+from pico2d import open_canvas, update_canvas,clear_canvas,SDLK_ESCAPE
 from src.mgr.TimeMgr import TimeMgr
 from src.mgr.KeyMgr import KeyMgr
 
 class Core:
     mgr = None
+    quit = False
 
     def __new__(cls):
         if cls.mgr == None:
@@ -22,6 +23,9 @@ class Core:
         self.TimeMgr.update()
         self.KeyMgr.update()
 
+        if KeyMgr.GetKey(SDLK_ESCAPE) == "TAP":
+            self.quit = True
+
 
     def render(self):
         self.objMgr.render()
@@ -29,4 +33,4 @@ class Core:
         clear_canvas()
 
     def Quit(self):
-        return True
+        return not self.quit

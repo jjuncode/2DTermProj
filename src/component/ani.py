@@ -6,9 +6,12 @@ def CreatePath(_path):
     return "../../resource/" +_path
 
 class Ani:
-    def __init__(self,_path,_max_frame):
+    def __init__(self,_path,_max_frame,_offset_x,_offset_y):
         self.cur_ani = 0
         self.cur_frame = 0
+        self.offset_x = _offset_x
+        self.offset_y = _offset_y
+
         self.max_frame = _max_frame
         self.image = load_image(CreatePath(_path))
 
@@ -17,11 +20,14 @@ class Ani:
         self.acc_time =0.0  # 누적시간
 
     def render(self,pos):
-        self.image.clip_draw(self.cur_frame*128,self.cur_ani*64,128,64,pos.x,pos.y, 500,400)
+        self.image.clip_draw(self.cur_frame*self.offset_x
+                             ,self.cur_ani*self.offset_y
+                             ,self.offset_x,self.offset_y
+                             ,pos.x,pos.y, 500,400)
 
     def update(self):
         self.acc_time += TimeMgr.GetDt()
 
         if (self.acc_time > self.act_time ):
             self.acc_time = 0
-            self.cur_frame = ( self.cur_frame +1 ) % 8
+            self.cur_frame = ( self.cur_frame +1 ) % self.max_frame[self.cur_ani]
