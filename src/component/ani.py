@@ -20,14 +20,15 @@ class Ani:
         self.acc_time =0.0  # 누적시간
 
     def render(self,pos):
-        self.image.clip_draw(self.cur_frame*self.offset_x
-                             ,self.cur_ani*self.offset_y
-                             ,self.offset_x,self.offset_y
+        self.image.clip_draw(self.cur_frame*self.offset_x[self.cur_ani]
+                             ,sum(self.offset_y[:self.cur_ani])
+                             ,self.offset_x[self.cur_ani],self.offset_y[self.cur_ani]
                              ,pos.x,pos.y, 500,400)
 
-    def update(self):
+    def update(self,_cur_ani,_reset):
         self.acc_time += TimeMgr.GetDt()
-
+        self.cur_ani = _cur_ani
+        if (_reset) : self.cur_frame = 0
         if (self.acc_time > self.act_time ):
             self.acc_time = 0
             self.cur_frame = ( self.cur_frame +1 ) % self.max_frame[self.cur_ani]

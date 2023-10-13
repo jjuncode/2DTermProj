@@ -1,7 +1,7 @@
 from src.mgr.ObjMgr import ObjMgr
 from pico2d import open_canvas, update_canvas,clear_canvas,SDLK_ESCAPE
 from src.mgr.TimeMgr import TimeMgr
-from src.mgr.KeyMgr import KeyMgr
+from src.mgr.KeyMgr import GetKey,KeyMgr
 
 class Core:
     mgr = None
@@ -23,7 +23,7 @@ class Core:
         self.TimeMgr.update()
         self.KeyMgr.update()
 
-        if KeyMgr.GetKey(SDLK_ESCAPE) == "TAP":
+        if GetKey(SDLK_ESCAPE) == "TAP":
             self.quit = True
 
 

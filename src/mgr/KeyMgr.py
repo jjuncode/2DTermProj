@@ -33,8 +33,6 @@ class KeyMgr:
                 if self.key[_key] == "TAP":
                     self.key[_key] = "HOLD"
 
-
-    @staticmethod
-    def GetKey(_key):
-        if _key not in KeyMgr.key: KeyMgr.key[_key] = "NONE"
-        return KeyMgr.key[_key]
+def GetKey(_key):
+    if _key not in KeyMgr.key: KeyMgr.key[_key] = "NONE"
+    return KeyMgr.key[_key]
