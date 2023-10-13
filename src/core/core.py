@@ -12,15 +12,15 @@ class Core:
 
     def __init__(self):
         open_canvas()
-        self.obj = ObjMgr()
+        self.objMgr = ObjMgr()
         self.TimeMgr = TimeMgr()
 
     def update(self):
-        self.obj.update()
+        self.objMgr.update()
         self.TimeMgr.update()
 
     def render(self):
-        self.obj.render()
+        self.objMgr.render()
         update_canvas()
         clear_canvas()
 
