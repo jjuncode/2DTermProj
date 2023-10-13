@@ -30,7 +30,10 @@ class Ani:
 
     def update(self):
         self.acc_time += TimeMgr.GetDt()
-        if (self.ani_reset) : self.cur_frame = 0
+        if (self.ani_reset) :
+            self.cur_frame = 0
+            self.ani_reset = False
+
         if (self.acc_time > self.act_time ):
             self.acc_time = 0
             self.cur_frame = ( self.cur_frame +1 ) % self.max_frame[self.cur_ani]
