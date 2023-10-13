@@ -1,8 +1,11 @@
 from pico2d import *
+import ctypes
 
+def is_key_pressed(key_code):
+    return ctypes.windll.user32.GetAsyncKeyState(key_code) != 0
 class KeyMgr:
     mgr = None
-    key = { i:0 for i in range(SDLK_a, SDLK_z+1)}
+    key = { i:"NONE" for i in range(SDLK_a, SDLK_z+1)}
 
     def __new__(cls):
         if cls.mgr == None:
@@ -10,25 +13,31 @@ class KeyMgr:
             return cls.mgr
 
     def __init__(self):
-        temp = {i:0 for i in range(SDLK_RIGHT,SDLK_UP+1)}
-        self.mgr.key.update(temp)
         pass
     def update(self):
         event = get_events()
 
         # 이벤트 처리
         for e in event:
+
             if e.type == SDL_KEYDOWN:
-                self.mgr.key[e.key] = self.mgr.key[e.key] + 1
-                print(self.mgr.key[e.key])
+                if e.key not in self.key : self.key[e.key]="NONE"
+                if self.key[e.key] == "NONE":
+                    self.key[e.key] = "TAP" # TAP처리 됬으면 끝
+                    continue
+
+
             elif e.type == SDL_KEYUP:
-                self.mgr.key[e.key] -= 1
+                self.key[e.key] = "NONE"
+                print(self.key[e.key])
+                print("key up!!!!!!!!!!!!!!!!!!!!!!")
+
+            # HOLD 처리
+            for _key,_value in self.key.items():
+                if self.key[_key] == "TAP":
+                    self.key[_key] = "HOLD"
+
 
     @staticmethod
     def GetKey(_key):
-        if KeyMgr.mgr.key[_key] == 0 :
-            return "NONE"
-        elif KeyMgr.mgr.key[_key] == 1 :
-            return "TAP"
-        elif KeyMgr.mgr.key[_key] > 1 :
-            return "HOLD"
+        return KeyMgr.key[_key]
