@@ -4,6 +4,6 @@ if __name__ == '__main__':
    core = Core()
 
    while(core.mgr.Quit()):
-      core.mgr.update()
-      core.mgr.render()
+      core.update()
+      core.render()
 

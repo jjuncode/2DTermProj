@@ -1,6 +1,7 @@
 from src.mgr.ObjMgr import ObjMgr
 from pico2d import open_canvas, update_canvas,clear_canvas
 from src.mgr.TimeMgr import TimeMgr
+from src.mgr.KeyMgr import KeyMgr
 
 class Core:
     mgr = None
@@ -14,10 +15,13 @@ class Core:
         open_canvas()
         self.objMgr = ObjMgr()
         self.TimeMgr = TimeMgr()
+        self.KeyMgr = KeyMgr()
 
     def update(self):
         self.objMgr.update()
         self.TimeMgr.update()
+        self.KeyMgr.update()
+
 
     def render(self):
         self.objMgr.render()
