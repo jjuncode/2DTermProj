@@ -64,3 +64,10 @@ def isNoneKey(_key):
 
 def SetKeyNone(_key):
     KeyMgr.key[_key] = "NONE"
+
+def SetKeyExcept(_key):
+    KeyMgr.key[_key] = "EXCEPT"
+
+def SetKeyTap(_key):
+    KeyMgr.key[_key] = "TAP"
+

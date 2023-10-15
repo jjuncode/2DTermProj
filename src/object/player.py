@@ -1,6 +1,6 @@
 from src.struct.struct import Vec2
 from src.component.ani import Ani
-from src.mgr.KeyMgr import GetKey,IsKey,isNoneKey,SetKeyNone
+from src.mgr.KeyMgr import GetKey,IsKey,isNoneKey,SetKeyNone,SetKeyExcept,SetKeyTap
 from pico2d import SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_q,SDLK_e,get_time
 from src.mgr.TimeMgr import TimeMgr
 
@@ -12,7 +12,7 @@ class Player:
         # animation
         self.cur_ani = 0
         self.ani_reset = False
-        self.ani = Ani("Character.png", [8,12,7,7], [128,128,200,200],[120,120,203,203])
+        self.ani = Ani("Character.png", [8,12,7,7], [128,128,200,200],[130,120,203,203])
 
         self.state = StateMachine(self)
 
@@ -97,14 +97,24 @@ class Attack_up:
 
     @staticmethod
     def update_key(_instance):
-        if IsKey(SDLK_d) or IsKey(SDLK_a) :
-            # 공격상태에서 이동키가 동시에 눌릴경우
-            # 이동 취소
-            SetKeyNone(SDLK_a)
-            SetKeyNone(SDLK_d)
+
+        # 공격상태에서 이동키가 동시에 눌릴경우
+        # 이동 취소
+        if IsKey(SDLK_d):
+            SetKeyExcept(SDLK_d)
+        if IsKey(SDLK_a) :
+            SetKeyExcept(SDLK_a)
+
+            # SetKeyNone(SDLK_a)
+            # SetKeyNone(SDLK_d)
 
         if isNoneKey((SDLK_e,SDLK_q)) :
             _instance.state.change_state("KEY_NONE")
+
+            # key holding 중이면 Tap처리해준다.
+            if GetKey(SDLK_d) == "EXCEPT": SetKeyTap(SDLK_d)
+            if GetKey(SDLK_a) == "EXCEPT": SetKeyTap(SDLK_a)
+
 
 
 class Attack_down:
@@ -132,13 +142,17 @@ class Attack_down:
         if IsKey(SDLK_d) or IsKey(SDLK_a):
             # 공격상태에서 이동키가 동시에 눌릴경우
             # 이동 취소
-            SetKeyNone(SDLK_a)
-            SetKeyNone(SDLK_d)
+            if IsKey(SDLK_d):
+                SetKeyExcept(SDLK_d)
+            if IsKey(SDLK_a):
+                SetKeyExcept(SDLK_a)
 
         if isNoneKey((SDLK_e,SDLK_q)) :
             _instance.state.change_state("KEY_NONE")
 
-
+            # key holding 중이면 Tap처리해준다.
+            if GetKey(SDLK_d) == "EXCEPT": SetKeyTap(SDLK_d)
+            if GetKey(SDLK_a) == "EXCEPT": SetKeyTap(SDLK_a)
 class StateMachine:
     def __init__(self,_instance):
         self.instance = _instance
