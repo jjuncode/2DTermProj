@@ -84,7 +84,7 @@ class Attack_up:
     @staticmethod
     def update(_instance):
         _instance.ani.update()
-        pass
+        Attack_up.update_key(_instance)
 
     @staticmethod
     def render(_instance):
@@ -94,6 +94,11 @@ class Attack_up:
     @staticmethod
     def exit(_instance):
         pass
+
+    @staticmethod
+    def update_key(_instance):
+        if isNoneKey((SDLK_e,SDLK_q)) :
+            _instance.state.change_state("KEY_NONE")
 
 
 class Attack_down:
@@ -105,6 +110,7 @@ class Attack_down:
     @staticmethod
     def update(_instance):
         _instance.ani.update()
+        Attack_down.update_key(_instance)
 
     @staticmethod
     def render(_instance):
@@ -115,6 +121,11 @@ class Attack_down:
     def exit(_instance):
         pass
 
+    @staticmethod
+    def update_key(_instance):
+        if isNoneKey((SDLK_e,SDLK_q)) :
+            _instance.state.change_state("KEY_NONE")
+
 
 class StateMachine:
     def __init__(self,_instance):
@@ -124,8 +135,8 @@ class StateMachine:
         self.transition = {
             Idle : { SDLK_e :Attack_down, SDLK_q : Attack_up, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run},
             Run : {SDLK_e : Attack_down, SDLK_q : Attack_up,"KEY_NONE":Idle},
-            Attack_up : { SDLK_e :Attack_down, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run},
-            Attack_down: {SDLK_q: Attack_up, SDLK_w: Run, SDLK_s: Run, SDLK_a: Run, SDLK_d: Run}
+            Attack_up : { SDLK_e :Attack_down, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run, "KEY_NONE":Idle},
+            Attack_down: {SDLK_q: Attack_up, SDLK_w: Run, SDLK_s: Run, SDLK_a: Run, SDLK_d: Run, "KEY_NONE":Idle}
         }
 
     def update(self):
@@ -140,9 +151,11 @@ class StateMachine:
     def change_state(self,extra):
         for cur_event, next_state in self.transition[self.cur_state].items():
             if GetKey(cur_event) == "TAP" or GetKey(cur_event) == "HOLD":
+                self.cur_state.exit(self.instance)
                 self.cur_state = next_state
                 self.cur_state.init(self.instance)
             elif extra == cur_event :
+                self.cur_state.exit(self.instance)
                 self.cur_state = next_state
                 self.cur_state.init(self.instance)
 
