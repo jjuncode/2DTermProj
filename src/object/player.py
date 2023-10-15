@@ -1,13 +1,14 @@
-from src.struct.struct import Pos
+from src.struct.struct import Vec2
 from src.component.ani import Ani
-from src.mgr.KeyMgr import GetKey
+from src.mgr.KeyMgr import GetKey,IsTapKey
 from pico2d import SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_q,SDLK_e,get_time
 from src.mgr.TimeMgr import TimeMgr
 
 class Player:
     def __init__(self):
-        self.pos = Pos()
+        self.pos = Vec2()
         self.speed = 500
+        self.dir = Vec2()
 
         # animation
         self.cur_ani = 0
@@ -50,6 +51,10 @@ class Run:
     def init(_instance):
         _instance.ani.cur_ani = 0
         _instance.ani.ani_reset = True
+        if IsTapKey(SDLK_a) : _instance.dir.x -=1
+        if IsTapKey(SDLK_d) : _instance.dir.x += 1
+        if IsTapKey(SDLK_w) : _instance.dir.y += 1
+        if IsTapKey(SDLK_s) : _instance.dir.y -= 1
 
     @staticmethod
     def update(_instance):

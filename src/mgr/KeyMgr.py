@@ -16,6 +16,10 @@ class KeyMgr:
 
         # 이벤트 처리
         for e in event:
+            # AWAY -> NONE
+            for _key,_value in self.key.items():
+                if self.key[_key] == "AWAY":
+                    self.key[_key] = "NONE"
 
             if e.type == SDL_KEYDOWN:
                 if e.key not in self.key : self.key[e.key]="NONE"
@@ -25,7 +29,7 @@ class KeyMgr:
                 print(self.key[e.key])
 
             elif e.type == SDL_KEYUP:
-                self.key[e.key] = "NONE"
+                self.key[e.key] = "AWAY"
                 print(self.key[e.key])
 
             # HOLD 처리
@@ -33,6 +37,24 @@ class KeyMgr:
                 if self.key[_key] == "TAP":
                     self.key[_key] = "HOLD"
 
+
 def GetKey(_key):
     if _key not in KeyMgr.key: KeyMgr.key[_key] = "NONE"
     return KeyMgr.key[_key]
+
+def IsKey(_key):
+    if GetKey(_key) == "TAP" or GetKey(_key) == "HOLD" :
+        return True
+    return False
+
+def IsTapKey(_key):
+    if GetKey(_key) == "TAP" : return True
+    return False
+
+def IsHoldKey(_key):
+    if GetKey(_key) == "HOLD" : return True
+    return False
+
+def IsAwayKey(_key):
+    if GetKey(_key) == "AWAY" : return True
+    return False
