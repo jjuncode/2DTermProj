@@ -26,11 +26,9 @@ class KeyMgr:
                 if self.key[e.key] == "NONE":
                     self.key[e.key] = "TAP" # TAP처리 됬으면 끝
                     continue
-                print(self.key[e.key])
 
             elif e.type == SDL_KEYUP:
                 self.key[e.key] = "AWAY"
-                print(self.key[e.key])
 
             # HOLD 처리
             for _key,_value in self.key.items():
@@ -63,3 +61,6 @@ def isNoneKey(_key):
     for key in _key :
         if IsKey(key) : return False     # 들어온 키중 하나라도 입력되있으면 None상태가 아니다
     return True
+
+def SetKeyNone(_key):
+    KeyMgr.key[_key] = "NONE"

@@ -1,6 +1,6 @@
 from src.struct.struct import Vec2
 from src.component.ani import Ani
-from src.mgr.KeyMgr import GetKey,IsKey,isNoneKey
+from src.mgr.KeyMgr import GetKey,IsKey,isNoneKey,SetKeyNone
 from pico2d import SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_q,SDLK_e,get_time
 from src.mgr.TimeMgr import TimeMgr
 
@@ -97,6 +97,12 @@ class Attack_up:
 
     @staticmethod
     def update_key(_instance):
+        if IsKey(SDLK_d) or IsKey(SDLK_a) :
+            # 공격상태에서 이동키가 동시에 눌릴경우
+            # 이동 취소
+            SetKeyNone(SDLK_a)
+            SetKeyNone(SDLK_d)
+
         if isNoneKey((SDLK_e,SDLK_q)) :
             _instance.state.change_state("KEY_NONE")
 
@@ -123,6 +129,12 @@ class Attack_down:
 
     @staticmethod
     def update_key(_instance):
+        if IsKey(SDLK_d) or IsKey(SDLK_a):
+            # 공격상태에서 이동키가 동시에 눌릴경우
+            # 이동 취소
+            SetKeyNone(SDLK_a)
+            SetKeyNone(SDLK_d)
+
         if isNoneKey((SDLK_e,SDLK_q)) :
             _instance.state.change_state("KEY_NONE")
 
