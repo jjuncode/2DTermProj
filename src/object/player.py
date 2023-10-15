@@ -1,7 +1,7 @@
 from src.struct.struct import Pos
 from src.component.ani import Ani
 from src.mgr.KeyMgr import GetKey
-from pico2d import SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_q,SDLK_e
+from pico2d import SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_q,SDLK_e,get_time
 from src.mgr.TimeMgr import TimeMgr
 
 class Player:
@@ -40,6 +40,9 @@ class Idle:
         _instance.ani.render(_instance.pos)
         pass
 
+    @staticmethod
+    def exit(_instance):
+        pass
 
 class Run:
 
@@ -51,6 +54,7 @@ class Run:
     @staticmethod
     def update(_instance):
         _instance.ani.update()
+        _instance.pos.x += 1
         pass
 
     @staticmethod
@@ -58,8 +62,11 @@ class Run:
         _instance.ani.render(_instance.pos)
         pass
 
-class Attack_up:
+    @staticmethod
+    def exit(_instance):
+        pass
 
+class Attack_up:
     @staticmethod
     def init(_instance):
         _instance.ani.cur_ani = 3
@@ -75,6 +82,10 @@ class Attack_up:
         _instance.ani.render(_instance.pos)
         pass
 
+    @staticmethod
+    def exit(_instance):
+        pass
+
 
 class Attack_down:
     @staticmethod
@@ -85,62 +96,43 @@ class Attack_down:
     @staticmethod
     def update(_instance):
         _instance.ani.update()
-        pass
 
     @staticmethod
     def render(_instance):
         _instance.ani.render(_instance.pos)
         pass
+
+    @staticmethod
+    def exit(_instance):
+        pass
+
+
 class StateMachine:
     def __init__(self,_instance):
         self.instance = _instance
         self.cur_state = Idle
         self.cur_state.init(self.instance)
-
-    def update_key(self):
-        if (GetKey(SDLK_a) == "TAP" or GetKey(SDLK_a) == "HOLD"):
-            self.instance.pos.x -= TimeMgr.GetDt() * self.instance.speed
-            if self.cur_state != Run :
-                self.cur_state = Run
-                self.cur_state.init(self.instance)
-
-        elif GetKey(SDLK_w) == "TAP" or GetKey(SDLK_w) == "HOLD":
-            self.instance.pos.y += TimeMgr.GetDt() * self.instance.speed
-            if self.cur_state != Run:
-                self.cur_state = Run
-                self.cur_state.init(self.instance)
-
-        elif GetKey(SDLK_s) == "TAP" or GetKey(SDLK_s) == "HOLD":
-            self.instance.pos.y -= TimeMgr.GetDt() * self.instance.speed
-            if self.cur_state != Run:
-                self.cur_state = Run
-                self.cur_state.init(self.instance)
-
-        elif GetKey(SDLK_d) == "TAP" or GetKey(SDLK_d) == "HOLD":
-            self.instance.pos.x += TimeMgr.GetDt() * self.instance.speed
-            if self.cur_state != Run:
-                self.cur_state = Run
-                self.cur_state.init(self.instance)
-
-        elif GetKey(SDLK_q) == "TAP" or GetKey(SDLK_q) == "HOLD":
-            if self.cur_state != Attack_down:
-                self.cur_state = Attack_down
-                self.cur_state.init(self.instance)
-
-        elif GetKey(SDLK_e) == "TAP" or GetKey(SDLK_e) == "HOLD":
-            if self.cur_state != Attack_up:
-                self.cur_state = Attack_up
-                self.cur_state.init(self.instance)
-
-        else :
-            if self.cur_state != Idle:
-                self.cur_state = Idle
-                self.cur_state.init(self.instance)
+        self.transition = {
+            Idle : { SDLK_e :Attack_down, SDLK_q : Attack_up, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run},
+            Run : {SDLK_e : Attack_down, SDLK_q : Attack_up},
+            Attack_up : { SDLK_e :Attack_down, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run},
+            Attack_down: {SDLK_q: Attack_up, SDLK_w: Run, SDLK_s: Run, SDLK_a: Run, SDLK_d: Run}
+        }
 
     def update(self):
         self.cur_state.update(self.instance)
         self.update_key()
+        self.change_state()
+
 
     def render(self):
         self.cur_state.render(self.instance)
 
+    def change_state(self):
+        for cur_key, next_state in self.transition[self.cur_state].items():
+            if GetKey(cur_key) == "TAP" or GetKey(cur_key) == "HOLD":
+                self.cur_state = next_state
+                self.cur_state.init(self.instance)
+
+    def update_key(self):
+        pass
