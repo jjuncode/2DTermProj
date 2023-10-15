@@ -58,3 +58,8 @@ def IsHoldKey(_key):
 def IsAwayKey(_key):
     if GetKey(_key) == "AWAY" : return True
     return False
+
+def isNoneKey(_key):
+    for key in _key :
+        if IsKey(key) : return False     # 들어온 키중 하나라도 입력되있으면 None상태가 아니다
+    return True
