@@ -2,7 +2,7 @@ from src.component.Collider import Collider
 from src.struct.struct import Vec2
 from src.component.Component import Component
 from src.component.StateMachine import Idle, Run, Attack_down, Attack_up
-from src.mgr.TimeMgr import TimeMgr
+from src.component.ani import Ani
 
 origin_collider_size = Vec2(10, 10)
 
@@ -13,9 +13,14 @@ class Sword(Component):
 
         # < Component >
         self.component = {}
+
+        # collider
         self.collider = Collider(self, Vec2(self.pos.x, self.pos.y),
                                  Vec2(origin_collider_size.x, origin_collider_size.y))
         self.component["COLLIDER"] = self.collider
+
+        # ani
+        self.ani = Ani(self,self.pos,"Character.png", [8,12,7,7], [128,128,200,200],[130,120,203,203])
 
     def update(self):
         if self.owner.getCurState() == Idle or self.owner.getCurState() == Run:
