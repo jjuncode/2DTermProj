@@ -1,26 +1,50 @@
 from src.struct.struct import Vec2
 from src.component.ani import Ani
-from src.mgr.KeyMgr import GetKey,IsKey,isNoneKey,SetKeyNone,SetKeyExcept,SetKeyTap
-from pico2d import SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_q,SDLK_e,get_time
-from src.mgr.TimeMgr import TimeMgr
+from src.mgr.KeyMgr import GetKey,IsKey,isNoneKey, SetKeyExcept,SetKeyTap
+from pico2d import SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_q,SDLK_e
+from src.component.Collider import Collider
+from src.component.sword import Sword
 
 class Player:
     def __init__(self):
-        self.pos = Vec2()
+        self.pos = Vec2(400,300)
         self.speed = 1
+
+        # < Component >
+        self.component={}
 
         # animation
         self.cur_ani = 0
         self.ani_reset = False
-        self.ani = Ani("Character.png", [8,12,7,7], [128,128,200,200],[130,120,203,203])
+        self.ani = Ani(self,"Character.png", [8,12,7,7], [128,128,200,200],[130,120,203,203])
+        self.component["ANI"] = self.ani
 
+        # collider
+        self.collider = Collider(self,self.pos,Vec2(40,70))
+        self.component["COLLIDER"] = self.collider
+
+        # sword
+        self.sword = Sword(self)
+        self.component["SWORD"] = self.sword
+
+        # < StateMachine >
         self.state = StateMachine(self)
 
     def render(self):
+        for key,value in self.component.items() :
+            value.render()
         self.state.render()
 
     def update(self):
+        for key, value in self.component.items():
+            value.update()
         self.state.update()
+
+    def getPos(self):
+        return self.pos
+
+    def getCurState(self):
+        return self.state.cur_state
 
 
 class Idle:
@@ -37,7 +61,7 @@ class Idle:
 
     @staticmethod
     def render(_instance):
-        _instance.ani.render(_instance.pos)
+        _instance.ani.render()
         pass
 
     @staticmethod
@@ -58,7 +82,7 @@ class Run:
 
     @staticmethod
     def render(_instance):
-        _instance.ani.render(_instance.pos)
+        _instance.ani.render()
         pass
 
     @staticmethod
@@ -88,7 +112,7 @@ class Attack_up:
 
     @staticmethod
     def render(_instance):
-        _instance.ani.render(_instance.pos)
+        _instance.ani.render()
         pass
 
     @staticmethod
@@ -130,7 +154,7 @@ class Attack_down:
 
     @staticmethod
     def render(_instance):
-        _instance.ani.render(_instance.pos)
+        _instance.ani.render()
         pass
 
     @staticmethod
