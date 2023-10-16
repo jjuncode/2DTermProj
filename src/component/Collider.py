@@ -9,7 +9,6 @@ class Collider(Component) :
     def update(self):
         self.pos = self.owner.getPos()
 
-
     def render(self):
         draw_rectangle(self.pos.x - self.scale.x , self.pos.y + self.scale.y
                        , self.pos.x + self.scale.x , self.pos.y - self.scale.y )

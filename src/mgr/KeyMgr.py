@@ -1,4 +1,5 @@
 from pico2d import *
+
 class KeyMgr:
     mgr = None
     key = { i:"NONE" for i in range(SDLK_a, SDLK_z+1)}
