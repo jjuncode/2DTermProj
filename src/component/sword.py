@@ -17,8 +17,8 @@ class Sword(Component):
         if self.owner.getCurState() == Idle or self.owner.getCurState() == Run:
             self.pos = self.owner.getPos()
         elif self.owner.getCurState() == Attack_up:
-            self.pos.x += TimeMgr.GetDt() * 100
-            pass
+            self.pos.x = self.owner.getPos().x + 10 * self.owner.ani.cur_frame
+
         elif self.owner.getCurState() == Attack_down:
             pass
 
