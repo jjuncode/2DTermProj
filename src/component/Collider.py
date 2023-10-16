@@ -3,9 +3,8 @@ from src.component.Component import Component
 
 class Collider(Component) :
     def __init__(self,_owner,_pos,_scale):
-        self.pos = _pos
+        super().__init__(_owner, _pos)
         self.scale = _scale
-        self.owner = _owner
 
     def update(self):
         self.pos = self.owner.getPos()

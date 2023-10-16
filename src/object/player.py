@@ -16,7 +16,7 @@ class Player:
         # animation
         self.cur_ani = 0
         self.ani_reset = False
-        self.ani = Ani(self,"Character.png", [8,12,7,7], [128,128,200,200],[130,120,203,203])
+        self.ani = Ani(self,self.pos,"Character.png", [8,12,7,7], [128,128,200,200],[130,120,203,203])
         self.component["ANI"] = self.ani
 
         # collider
@@ -24,7 +24,7 @@ class Player:
         self.component["COLLIDER"] = self.collider
 
         # sword
-        self.sword = Sword(self)
+        self.sword = Sword(self,self.pos)
         self.component["SWORD"] = self.sword
 
         # < StateMachine >

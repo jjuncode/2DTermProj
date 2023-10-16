@@ -7,9 +7,8 @@ def CreatePath(_path):
     return "../../resource/" +_path
 
 class Ani(Component):
-    def __init__(self,_owner,_path,_max_frame,_offset_x,_offset_y):
-        self.owner = _owner
-        self.pos = Vec2(0,0)
+    def __init__(self,_owner,_pos,_path,_max_frame,_offset_x,_offset_y):
+        super().__init__(_owner,_pos)
         self.cur_ani = 0
         self.cur_frame = 0
         self.offset_x = _offset_x
