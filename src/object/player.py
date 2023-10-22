@@ -15,7 +15,8 @@ class Player:
         # animation
         self.cur_ani = 0
         self.ani_reset = False
-        self.ani = Ani(self,self.pos,"Character.png", [8,12,7,7], [128,128,200,200],[130,120,203,203])
+        self.ani = Ani(self,self.pos,"Character.png", [8,12,7,7], [128,128,200,200],[130,120,203,203]
+                       ,0.15,Vec2(3,3))
         self.component["ANI"] = self.ani
 
         # collider
@@ -30,9 +31,9 @@ class Player:
         self.state = StateMachine(self)
 
     def render(self):
+        self.state.render()
         for key,value in self.component.items() :
             value.render()
-        self.state.render()
 
     def update(self):
         for key, value in self.component.items():
