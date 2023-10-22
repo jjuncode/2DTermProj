@@ -8,15 +8,15 @@ origin_collider_size = Vec2(10, 10)
 
 
 class Effect(Component):
-    def __init__(self, _owner, _pos):
+    def __init__(self, _owner, _pos, ani):
         super().__init__(_owner, _pos)
 
         # < Component >
         self.component = {}
 
         # collider
-        self.ani = Ani(self, self.pos, "spr_dragon_slash.png", [5], [94], [38]
-                       ,0.15,Vec2(1,3))
+        self.ani = ani
+
         self.component["ANI"] = self.ani
 
     def update(self):
