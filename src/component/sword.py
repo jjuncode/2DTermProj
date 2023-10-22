@@ -24,7 +24,7 @@ class Sword(Component):
         self.cur_effect = None
         self.effect ={}
         self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos, Ani(self, self.pos, "spr_master_slash.png", [5], [123], [30]
-                                                             , 0.15, Vec2(2, 6)))
+                                                             , 0.15, Vec2(2, 5)))
 
         self.effect["EFFECT_ATTACK_DOWN"] = Effect(self,self.pos,Ani(self, self.pos, "spr_dragon_slash.png", [5], [94], [38]
                        ,0.15,Vec2(2,5)))

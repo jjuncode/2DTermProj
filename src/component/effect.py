@@ -21,7 +21,7 @@ class Effect(Component):
         self.component["ANI"] = self.ani
 
     def update(self):
-        self.pos = Vec2(self.owner.pos.x,self.owner.pos.y+40)
+        self.pos = Vec2(self.owner.pos.x,self.owner.pos.y+50)
 
         for key, value in self.component.items():
             value.update()
