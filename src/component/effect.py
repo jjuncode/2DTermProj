@@ -16,11 +16,12 @@ class Effect(Component):
 
         # collider
         self.ani = ani
+        self.ani.owner = self
 
         self.component["ANI"] = self.ani
 
     def update(self):
-        self.pos = self.owner.pos
+        self.pos = Vec2(self.owner.pos.x,self.owner.pos.y+40)
 
         for key, value in self.component.items():
             value.update()

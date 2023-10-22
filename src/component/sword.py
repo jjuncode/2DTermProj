@@ -23,18 +23,20 @@ class Sword(Component):
         # effect
         self.cur_effect = None
         self.effect ={}
-        self.effect_attack_down = Effect(self,self.pos,Ani(self, self.pos, "spr_dragon_slash.png", [5], [94], [38]
-                       ,0.15,Vec2(1,5)))
-        self.effect_attack_up = Effect(self, self.pos, Ani(self, self.pos, "spr_master_slash.png", [5], [123], [30]
-                                                             , 0.15, Vec2(1, 5)))
-        self.effect["EFFECT_ATTACK_UP"] = self.effect_attack_up
-        self.effect["EFFECT_ATTACK_DOWN"] = self.effect_attack_down
+        self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos, Ani(self, self.pos, "spr_master_slash.png", [5], [123], [30]
+                                                             , 0.15, Vec2(2, 6)))
+
+        self.effect["EFFECT_ATTACK_DOWN"] = Effect(self,self.pos,Ani(self, self.pos, "spr_dragon_slash.png", [5], [94], [38]
+                       ,0.15,Vec2(2,5)))
 
     def update(self):
         if self.owner.getCurState() == Idle or self.owner.getCurState() == Run:
             self.pos = self.owner.getPos()
             self.component["COLLIDER"].scale.x = origin_collider_size.x
             self.component["COLLIDER"].scale.y = origin_collider_size.y
+
+            if self.cur_effect == "EFFECT_ATTACK_UP" or self.cur_effect == "EFFECT_ATTACK_DOWN":
+                self.effect[self.cur_effect].ani.cur_frame = 0
 
         elif self.owner.getCurState() == Attack_up:
             self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame

@@ -27,7 +27,7 @@ class Ani(Component):
             self.image.clip_draw(self.cur_frame*self.offset_x[self.cur_ani] # x
                              ,sum(self.offset_y[:self.cur_ani])         # y
                              ,self.offset_x[self.cur_ani],self.offset_y[self.cur_ani]    # offset
-                             ,self.pos.x,self.pos.y   # pos
+                             ,self.owner.pos.x,self.owner.pos.y   # pos
                              ,self.offset_x[self.cur_ani] * self.draw_size.x       # size_x
                              ,self.offset_y[self.cur_ani] * self.draw_size.y)      # size_y
 
