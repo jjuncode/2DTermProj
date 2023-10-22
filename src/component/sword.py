@@ -22,12 +22,13 @@ class Sword(Component):
 
         # effect
         self.cur_effect = None
+        self.effect ={}
         self.effect_attack_down = Effect(self,self.pos,Ani(self, self.pos, "spr_dragon_slash.png", [5], [94], [38]
                        ,0.15,Vec2(1,5)))
         self.effect_attack_up = Effect(self, self.pos, Ani(self, self.pos, "spr_master_slash.png", [5], [123], [30]
                                                              , 0.15, Vec2(1, 5)))
-        self.component["EFFECT_ATTACK_UP"] = self.effect_attack_up
-        self.component["EFFECT_ATTACK_DOWN"] = self.effect_attack_down
+        self.effect["EFFECT_ATTACK_UP"] = self.effect_attack_up
+        self.effect["EFFECT_ATTACK_DOWN"] = self.effect_attack_down
 
     def update(self):
         if self.owner.getCurState() == Idle or self.owner.getCurState() == Run:
@@ -46,6 +47,10 @@ class Sword(Component):
             self.component["COLLIDER"].scale.x = 10 + 15 * (self.owner.ani.cur_frame - 1)
             self.component["COLLIDER"].scale.y = 10 + 15 * (self.owner.ani.cur_frame - 1)
             self.cur_effect = "EFFECT_ATTACK_DOWN"
+
+        # effect
+        if self.cur_effect != None :
+            self.component["EFFECT"] = self.effect[self.cur_effect]
 
         for key, value in self.component.items():
             value.update()
