@@ -1,4 +1,5 @@
 from src.object.player import Player
+from src.object.background import BackGround
 
 class ObjMgr:
     mgr = None
@@ -9,13 +10,16 @@ class ObjMgr:
             return cls.mgr
 
     def __init__(self):
-        self.obj = []
-        self.obj.append(Player())
+        self.obj = [[],[]]
+        self.obj[1].append(Player())
+        self.obj[0].append(BackGround())
 
     def update(self):
-        for obj in self.obj:
-            obj.update()
+        for layer in self.obj:
+            for obj in layer:
+                obj.update()
 
     def render(self):
-        for obj in self.obj:
-            obj.render()
+        for layer in self.obj:
+            for obj in layer:
+                obj.render()
