@@ -5,7 +5,7 @@ from src.component.ani import CreatePath
 class BackGround:
     def __init__(self):
         self.pos = Vec2(400,300)
-        self.cur_image = load_image(CreatePath('spr_casino_bg.png'))
+        self.cur_image = load_image(CreatePath('bg_streetFighter.jpg'))
 
 
     def render(self):
