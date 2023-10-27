@@ -1,5 +1,5 @@
-from src.mgr.KeyMgr import GetKey,IsKey,isNoneKey, SetKeyExcept,SetKeyTap
-from pico2d import SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_q,SDLK_e
+from src.mgr.KeyMgr import GetKey,IsKey,isNoneKey, SetKeyExcept,SetKeyTap,IsTapKey
+from pico2d import SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_q,SDLK_e,SDLK_SPACE
 class Idle:
 
     @staticmethod
@@ -52,6 +52,34 @@ class Run:
         if isNoneKey((SDLK_a,SDLK_d,SDLK_w,SDLK_s)):
             _instance.state.change_state("KEY_NONE")
 
+class Jump:
+    @staticmethod
+    def init(_instance):
+        _instance.ani.cur_ani = 0
+        _instance.ani.ani_reset = True
+
+    @staticmethod
+    def update(_instance):
+        _instance.ani.update()
+        Jump.update_key(_instance)
+
+    @staticmethod
+    def render(_instance):
+        _instance.ani.render()
+        pass
+
+    @staticmethod
+    def exit(_instance):
+        pass
+    @staticmethod
+    def update_key(_instance):
+        if IsKey(SDLK_SPACE):
+            if _instance.pos.y <= 50 + 180:
+                if _instance.component["PHYSIC"].accel.y <= 1000:
+                    _instance.component["PHYSIC"].accel.y += 250
+        if _instance.pos.y <= 0 + 180:
+            _instance.state.change_state("GROUND")
+
 class Attack_up:
     @staticmethod
     def init(_instance):
@@ -91,8 +119,6 @@ class Attack_up:
             # key holding 중이면 Tap처리해준다.
             if GetKey(SDLK_d) == "EXCEPT": SetKeyTap(SDLK_d)
             if GetKey(SDLK_a) == "EXCEPT": SetKeyTap(SDLK_a)
-
-
 
 class Attack_down:
     @staticmethod
@@ -136,10 +162,11 @@ class StateMachine:
         self.cur_state = Idle
         self.cur_state.init(self.instance)
         self.transition = {
-            Idle : { SDLK_e :Attack_down, SDLK_q : Attack_up, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run},
-            Run : {SDLK_e : Attack_down, SDLK_q : Attack_up,"KEY_NONE":Idle},
-            Attack_up : { SDLK_e :Attack_down, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run, "KEY_NONE":Idle},
-            Attack_down: {SDLK_q: Attack_up, SDLK_w: Run, SDLK_s: Run, SDLK_a: Run, SDLK_d: Run, "KEY_NONE":Idle}
+            Idle : { SDLK_e :Attack_down, SDLK_q : Attack_up, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run,SDLK_SPACE : Jump},
+            Run : {SDLK_e : Attack_down, SDLK_q : Attack_up,"KEY_NONE":Idle,SDLK_SPACE : Jump},
+            Attack_up : { SDLK_e :Attack_down, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run, "KEY_NONE":Idle,SDLK_SPACE : Jump},
+            Attack_down: {SDLK_q: Attack_up, SDLK_w: Run, SDLK_s: Run, SDLK_a: Run, SDLK_d: Run, "KEY_NONE":Idle,SDLK_SPACE : Jump},
+            Jump : {"GROUND" : Idle, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run}
         }
 
     def update(self):
