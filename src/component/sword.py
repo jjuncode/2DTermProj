@@ -31,7 +31,7 @@ class Sword(Component):
 
     def update(self):
         if self.owner.getCurState() == Idle or self.owner.getCurState() == Run:
-            self.pos = self.owner.getPos()
+            self.pos = self.owner.pos
             self.component["COLLIDER"].scale.x = origin_collider_size.x
             self.component["COLLIDER"].scale.y = origin_collider_size.y
 

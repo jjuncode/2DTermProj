@@ -4,6 +4,7 @@ from src.component.ani import Ani
 from src.component.Collider import Collider
 from src.component.sword import Sword
 from src.component.StateMachine import StateMachine
+from src.component.Physic import Physic
 class Player:
     def __init__(self):
         self.pos = Vec2(400,300)
@@ -26,6 +27,10 @@ class Player:
         # sword
         self.sword = Sword(self,Vec2(self.pos.x,self.pos.y))
         self.component["SWORD"] = self.sword
+
+        # physic
+        self.physic = Physic(self,Vec2(self.pos.x,self.pos.y))
+        self.component["PHYSIC"] = self.physic
 
         # < StateMachine >
         self.state = StateMachine(self)

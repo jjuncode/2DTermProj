@@ -22,6 +22,7 @@ class Ani(Component):
         self.draw_size = draw_size
 
     def render(self):
+            print(self.owner.pos.x,self.owner.pos.y)
             self.image.clip_draw(self.cur_frame*self.offset_x[self.cur_ani] # x
                              ,sum(self.offset_y[:self.cur_ani])         # y
                              ,self.offset_x[self.cur_ani],self.offset_y[self.cur_ani]    # offset
@@ -30,7 +31,7 @@ class Ani(Component):
                              ,self.offset_y[self.cur_ani] * self.draw_size.y)      # size_y
 
     def update(self):
-        self.pos = self.owner.getPos()
+        self.pos = self.owner.pos
 
         self.acc_time += TimeMgr.GetDt()
         if (self.ani_reset) :
