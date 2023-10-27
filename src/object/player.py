@@ -41,9 +41,9 @@ class Player:
             value.render()
 
     def update(self):
+        self.state.update()
         for key, value in self.component.items():
             value.update()
-        self.state.update()
 
     def getPos(self):
         return Vec2(self.pos.x,self.pos.y)
