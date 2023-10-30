@@ -76,7 +76,7 @@ class Jump:
         if IsKey(SDLK_SPACE):
             if _instance.pos.y <= 50 + 180:
                 if _instance.component["PHYSIC"].accel.y <= 1000:
-                    _instance.component["PHYSIC"].accel.y += 250
+                    _instance.component["PHYSIC"].accel.y += 300
         if _instance.pos.y <= 0 + 180:
             _instance.state.change_state("GROUND")
 

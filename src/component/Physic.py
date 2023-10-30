@@ -1,11 +1,12 @@
 from src.component.Collider import Collider
+from src.component.StateMachine import Jump
 from src.struct.struct import Vec2
 from src.component.Component import Component
 from src.mgr.TimeMgr import TimeMgr
 
 class Physic(Component):
-    gravity = Vec2(0,-9.8)
-    speed = 10 # 물리 적용 offset값
+    gravity = Vec2(0,-15)
+    speed = 15 # 물리 적용 offset값
 
     def __init__(self, _owner,_pos):
         super().__init__(_owner, _pos)
@@ -14,12 +15,13 @@ class Physic(Component):
 
     def update(self):
         dt = TimeMgr.GetDt() * Physic.speed
-        if self.owner.pos.y > 0 + 180 :   # 공중에 떠있을 때 중력 적용
+        if self.owner.getCurState() == Jump :   # 공중에 떠있을 때 중력 적용
             after_accel = Vec2(self.accel.x + Physic.gravity.x , self.accel.y + Physic.gravity.y)
             print(after_accel.x,after_accel.y)
             self.accel = after_accel
         else : # 공중에 떠있지 않다면
             self.owner.pos.y = 0+180 # 땅에 고정
+            self.owner.accelClear()
 
         velo_after = Vec2(self.accel.x * dt,self.accel.y * dt )
 

@@ -51,3 +51,5 @@ class Player:
     def getCurState(self):
         return self.state.cur_state
 
+    def accelClear(self):
+        self.component["PHYSIC"].accel = Vec2(0,0)
