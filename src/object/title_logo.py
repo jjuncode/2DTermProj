@@ -5,7 +5,7 @@ from src.component.Physic import Physic
 
 class TitleLogo:
     def __init__(self):
-        self.pos = Vec2(400,1500)
+        self.pos = Vec2(400,2000)
         self.cur_image = load_image(CreatePath('title_logo.png'))
 
         # < Component >

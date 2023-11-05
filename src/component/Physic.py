@@ -5,7 +5,7 @@ from src.component.Component import Component
 from src.mgr.TimeMgr import TimeMgr
 
 class Physic(Component):
-    gravity = Vec2(0,-15)
+    gravity = Vec2(0,-9.8)
     speed = 15 # 물리 적용 offset값
 
     def __init__(self, _owner,_pos):

@@ -74,11 +74,12 @@ class Jump:
     @staticmethod
     def update_key(_instance):
         if IsKey(SDLK_SPACE):
-            if _instance.pos.y <= 50 + 180:
+            if _instance.pos.y == _instance.destn_y:
                 if _instance.component["PHYSIC"].accel.y <= 1000:
-                    _instance.component["PHYSIC"].accel.y += 300
+                    _instance.component["PHYSIC"].accel.y += 1000
+                    _instance.pos.y += 1
 
-        if _instance.pos.y <= 0 + 180:
+        if _instance.pos.y <= _instance.destn_y:
             _instance.state.change_state("GROUND")
 
 class Attack_up:

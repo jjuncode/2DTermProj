@@ -30,7 +30,8 @@ class Player:
 
         # physic
         self.physic = Physic(self,Vec2(self.pos.x,self.pos.y))
-        self.physic.destn_y = 200
+        self.destn_y = 200
+        self.physic.destn_y = self.destn_y
         self.component["PHYSIC"] = self.physic
 
         # < StateMachine >

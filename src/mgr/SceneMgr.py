@@ -23,7 +23,6 @@ class SceneMgr:
         self.acc += TimeMgr.GetDt()
         if self.acc >1 :
             self.acc = 0
-            print("현재씬 : ",self.cur_scene)
 
     def render(self):
         self.cur_scene.render()
