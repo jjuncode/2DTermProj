@@ -12,21 +12,22 @@ class Physic(Component):
         super().__init__(_owner, _pos)
         self.accel = Vec2(0,0)
         self.velo = Vec2(0,0)
+        self.destn_y = 0    # 중력 어디까지 작용할건지
 
     def update(self):
         dt = TimeMgr.GetDt() * Physic.speed
-        if self.owner.getCurState() == Jump or self.owner.pos.y > 0 + 200:   # 공중에 떠있을 때 중력 적용
+        if self.owner.pos.y > self.destn_y:   # 공중에 떠있을 때 중력 적용
             after_accel = Vec2(self.accel.x + Physic.gravity.x , self.accel.y + Physic.gravity.y)
-            print(after_accel.x,after_accel.y)
             self.accel = after_accel
+
         else : # 공중에 떠있지 않다면
-            self.owner.pos.y = 0+180 # 땅에 고정
-            self.owner.accelClear()
+            self.owner.pos.y = self.destn_y # 땅에 고정
+            self.accel.y = 0
 
         # 땅 뚫 방지
-        if ( self.owner.pos.y < 100 ) :
-            self.owner.pos.y = 100
-            self.owner.accelClear()
+        if ( self.owner.pos.y < self.destn_y ) :
+            self.owner.pos.y = self.destn_y
+            self.accel.y = 0
 
 
         velo_after = Vec2(self.accel.x * dt,self.accel.y * dt )

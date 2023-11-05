@@ -1,5 +1,7 @@
 import pico2d
 from src.scene.scene_play import scene_play
+from src.scene.scene_title import scene_title
+from src.mgr.TimeMgr import TimeMgr
 
 class SceneMgr:
     mgr = None
@@ -10,10 +12,22 @@ class SceneMgr:
             return cls.mgr
 
     def __init__(self):
-        self.cur_scene = scene_play()
+        # self.cur_scene = scene_play()
+        self.cur_scene = scene_title()
+        self.acc = 0
 
     def update(self):
         self.cur_scene.update()
+        self.cur_scene.updateKey()
+
+        self.acc += TimeMgr.GetDt()
+        if self.acc >1 :
+            self.acc = 0
+            print("현재씬 : ",self.cur_scene)
 
     def render(self):
         self.cur_scene.render()
+
+    @staticmethod
+    def sceneChange(_scene):
+        SceneMgr.mgr.cur_scene = _scene()

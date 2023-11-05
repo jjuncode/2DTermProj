@@ -30,6 +30,7 @@ class Player:
 
         # physic
         self.physic = Physic(self,Vec2(self.pos.x,self.pos.y))
+        self.physic.destn_y = 200
         self.component["PHYSIC"] = self.physic
 
         # < StateMachine >
@@ -50,6 +51,3 @@ class Player:
 
     def getCurState(self):
         return self.state.cur_state
-
-    def accelClear(self):
-        self.component["PHYSIC"].accel = Vec2(0,0)

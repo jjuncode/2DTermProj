@@ -3,7 +3,7 @@ from src.object.background import BackGround
 
 class scene:
     def __init__(self):
-        self.obj = [[],[]]
+        self.obj = [[],[],[]]
 
     def update(self):
         for layer in self.obj:
@@ -14,3 +14,12 @@ class scene:
         for layer in self.obj:
             for obj in layer:
                 obj.render()
+
+    def updateKey(self):
+        pass
+
+    @staticmethod
+    def sceneChange(_scene):
+        from src.mgr.SceneMgr import SceneMgr
+        SceneMgr.sceneChange(_scene)
+        print(SceneMgr.mgr.cur_scene)
