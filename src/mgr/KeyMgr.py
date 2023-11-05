@@ -38,8 +38,8 @@ class KeyMgr:
 
 
 def GetKey(_key):
-    if _key not in KeyMgr.key: KeyMgr.key[_key] = "NONE"
-    return KeyMgr.key[_key]
+    if _key not in KeyMgr.key: KeyMgr.mgr.key[_key] = "NONE"
+    return KeyMgr.mgr.key[_key]
 
 def IsKey(_key):
     if GetKey(_key) == "TAP" or GetKey(_key) == "HOLD" :
@@ -64,11 +64,11 @@ def isNoneKey(_key):
     return True
 
 def SetKeyNone(_key):
-    KeyMgr.key[_key] = "NONE"
+    KeyMgr.mgr.key[_key] = "NONE"
 
 def SetKeyExcept(_key):
-    KeyMgr.key[_key] = "EXCEPT"
+    KeyMgr.mgr.key[_key] = "EXCEPT"
 
 def SetKeyTap(_key):
-    KeyMgr.key[_key] = "TAP"
+    KeyMgr.mgr.key[_key] = "TAP"
 
