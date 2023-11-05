@@ -1,4 +1,4 @@
-from src.mgr.ObjMgr import ObjMgr
+from src.mgr.SceneMgr import SceneMgr
 from pico2d import open_canvas, update_canvas,clear_canvas,SDLK_ESCAPE
 from src.mgr.TimeMgr import TimeMgr
 from src.mgr.KeyMgr import GetKey,KeyMgr
@@ -14,12 +14,12 @@ class Core:
 
     def __init__(self):
         open_canvas()
-        self.objMgr = ObjMgr()
+        self.SceneMgr = SceneMgr()
         self.TimeMgr = TimeMgr()
         self.KeyMgr = KeyMgr()
 
     def update(self):
-        self.objMgr.update()
+        self.SceneMgr.update()
         self.TimeMgr.update()
         self.KeyMgr.update()
 
@@ -28,7 +28,7 @@ class Core:
 
 
     def render(self):
-        self.objMgr.render()
+        self.SceneMgr.render()
         update_canvas()
         clear_canvas()
 
