@@ -115,6 +115,11 @@ class Attack_up:
             # SetKeyNone(SDLK_a)
             # SetKeyNone(SDLK_d)
 
+        # 공격상태에서 반대평 공격이 동시에 눌릴경우
+        if IsKey(SDLK_e):
+            SetKeyExcept(SDLK_e)
+
+
         if isNoneKey((SDLK_e,SDLK_q)) :
             _instance.state.change_state("KEY_NONE")
 
@@ -151,6 +156,10 @@ class Attack_down:
                 SetKeyExcept(SDLK_d)
             if IsKey(SDLK_a):
                 SetKeyExcept(SDLK_a)
+
+            # 공격상태에서 반대편 공격이 동시에 눌릴경우
+            if IsKey(SDLK_q):
+                SetKeyExcept(SDLK_e)
 
         if isNoneKey((SDLK_e,SDLK_q)) :
             _instance.state.change_state("KEY_NONE")
