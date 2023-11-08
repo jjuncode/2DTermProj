@@ -3,9 +3,9 @@ from sdl2 import SDLK_SPACE
 from src.scene.scene import scene
 from src.scene.scene_play import scene_play
 
-from src.object.title_background import TitleBackground
-from src.object.title_fence import TitleFence
-from src.object.title_logo import TitleLogo
+from src.object.background.title_background import TitleBackground
+from src.object.background.title_fence import TitleFence
+from src.object.background.title_logo import TitleLogo
 from src.mgr.KeyMgr import IsTapKey
 
 class scene_title(scene):

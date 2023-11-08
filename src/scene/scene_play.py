@@ -1,6 +1,6 @@
 from src.scene.scene import scene
 from src.object.player import Player
-from src.object.background import BackGround
+from src.object.background.background import BackGround
 from src.object.sword import Sword
 from src.struct.struct import Vec2
 
@@ -20,4 +20,5 @@ class scene_play(scene):
 
         self.add_collision_pair("PLAYER:OPP_SWORD",player,None)        # 적 플레이어 타격
         self.add_collision_pair("PLAYER_SWORD:OPP",sword_player,None)       # 플레이어 적 타격
-        self.add_collision_pair("PLAYER_SWORD:OPP_SWORD",None,None) # 패링
+        self.add_collision_pair("PLAYER_SWORD:OPP_SWORD",sword_player,None) # 패링
+

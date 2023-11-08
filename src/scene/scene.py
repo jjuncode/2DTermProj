@@ -1,6 +1,3 @@
-from src.object.player import Player
-from src.object.background import BackGround
-
 def collide(a, b):
     la, ba, ra, ta = a.get_bb()
     lb, bb, rb, tb = b.get_bb()
