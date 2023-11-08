@@ -7,7 +7,6 @@ from src.component.effect import Effect
 
 origin_collider_size = Vec2(10, 10)
 
-
 class Sword(Component):
     def __init__(self, _owner, _pos):
         super().__init__(_owner, _pos)
@@ -63,3 +62,6 @@ class Sword(Component):
 
     def getPos(self):
         return self.pos
+
+    def get_bb(self):
+        self.component["COLLIDER"].get_bb()

@@ -3,6 +3,7 @@ from src.scene.scene_play import scene_play
 from src.scene.scene_title import scene_title
 from src.mgr.TimeMgr import TimeMgr
 
+
 class SceneMgr:
     mgr = None
 
@@ -21,7 +22,7 @@ class SceneMgr:
         self.cur_scene.updateKey()
 
         self.acc += TimeMgr.GetDt()
-        if self.acc >1 :
+        if self.acc > 1:
             self.acc = 0
 
     def render(self):
@@ -31,3 +32,7 @@ class SceneMgr:
     def sceneChange(_scene):
         del SceneMgr.mgr.cur_scene
         SceneMgr.mgr.cur_scene = _scene()
+
+    @staticmethod
+    def getCurScene():
+        return SceneMgr.mgr.cur_scene

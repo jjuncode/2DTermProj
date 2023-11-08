@@ -21,6 +21,7 @@ class scene:
         for layer in self.obj:
             for obj in layer:
                 obj.update()
+        self.checkCollision()
 
     def render(self):
         for layer in self.obj:
@@ -29,13 +30,6 @@ class scene:
 
     def updateKey(self):
         pass
-
-    @staticmethod
-    def sceneChange(_scene):
-        from src.mgr.SceneMgr import SceneMgr
-        SceneMgr.sceneChange(_scene)
-        print(SceneMgr.mgr.cur_scene)
-
 
     def checkCollision(self):
         for group, pairs in self.coll_group.items():
@@ -54,5 +48,10 @@ class scene:
         if b:
             self.coll_group[group][1].append(b)
 
+    @staticmethod
+    def sceneChange(_scene):
+        from src.mgr.SceneMgr import SceneMgr
+        SceneMgr.sceneChange(_scene)
+        print(SceneMgr.mgr.cur_scene)
 
 

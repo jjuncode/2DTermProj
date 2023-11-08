@@ -12,3 +12,6 @@ class Collider(Component) :
     def render(self):
         draw_rectangle(self.pos.x - self.scale.x , self.pos.y + self.scale.y
                        , self.pos.x + self.scale.x , self.pos.y - self.scale.y )
+
+    def get_bb(self): # lb rt
+        return self.pos.x - self.scale.x , self.pos.y - self.scale.y , self.pos.x + self.scale, self.pos.y + self.scale.y
