@@ -9,7 +9,7 @@ from src.component.Physic import Physic
 class Player:
     def __init__(self):
         self.pos = Vec2(400, 300)
-        self.speed = 1
+        self.speed = 200
 
         # < Component >
         self.component = {}

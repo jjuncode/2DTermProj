@@ -1,5 +1,7 @@
 from src.mgr.KeyMgr import GetKey,IsKey,isNoneKey, SetKeyExcept,SetKeyTap,IsTapKey
+from src.mgr.TimeMgr import TimeMgr
 from pico2d import SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_q,SDLK_e,SDLK_SPACE
+
 class Idle:
 
     @staticmethod
@@ -22,7 +24,6 @@ class Idle:
         pass
 
 class Run:
-
     @staticmethod
     def init(_instance):
         _instance.ani.cur_ani = 0
@@ -44,10 +45,10 @@ class Run:
 
     @staticmethod
     def update_key(_instance):
-        if IsKey(SDLK_d): _instance.pos.x += +_instance.speed
-        if IsKey(SDLK_a): _instance.pos.x -= +_instance.speed
-        if IsKey(SDLK_w): _instance.pos.y += +_instance.speed
-        if IsKey(SDLK_s): _instance.pos.y -= +_instance.speed
+        if IsKey(SDLK_d): _instance.pos.x += +_instance.speed * TimeMgr.GetDt()
+        if IsKey(SDLK_a): _instance.pos.x -= +_instance.speed * TimeMgr.GetDt()
+        if IsKey(SDLK_w): _instance.pos.x += +_instance.speed * TimeMgr.GetDt()
+        if IsKey(SDLK_s): _instance.pos.x -= +_instance.speed * TimeMgr.GetDt()
 
         if isNoneKey((SDLK_a,SDLK_d,SDLK_w,SDLK_s)):
             _instance.state.change_state("KEY_NONE")
@@ -111,6 +112,10 @@ class Attack_up:
             SetKeyExcept(SDLK_d)
         if IsKey(SDLK_a) :
             SetKeyExcept(SDLK_a)
+        if IsKey(SDLK_w):
+            SetKeyExcept(SDLK_w)
+        if IsKey(SDLK_s):
+            SetKeyExcept(SDLK_s)
 
             # SetKeyNone(SDLK_a)
             # SetKeyNone(SDLK_d)
@@ -126,6 +131,8 @@ class Attack_up:
             # key holding 중이면 Tap처리해준다.
             if GetKey(SDLK_d) == "EXCEPT": SetKeyTap(SDLK_d)
             if GetKey(SDLK_a) == "EXCEPT": SetKeyTap(SDLK_a)
+            if GetKey(SDLK_w) == "EXCEPT": SetKeyTap(SDLK_w)
+            if GetKey(SDLK_s) == "EXCEPT": SetKeyTap(SDLK_s)
 
 class Attack_down:
     @staticmethod
@@ -149,17 +156,21 @@ class Attack_down:
 
     @staticmethod
     def update_key(_instance):
-        if IsKey(SDLK_d) or IsKey(SDLK_a):
-            # 공격상태에서 이동키가 동시에 눌릴경우
-            # 이동 취소
-            if IsKey(SDLK_d):
-                SetKeyExcept(SDLK_d)
-            if IsKey(SDLK_a):
-                SetKeyExcept(SDLK_a)
+        # 공격상태에서 이동키가 동시에 눌릴경우
+        # 이동 취소
+        if IsKey(SDLK_d):
+            SetKeyExcept(SDLK_d)
+        if IsKey(SDLK_a):
+            SetKeyExcept(SDLK_a)
+        if IsKey(SDLK_w):
+            SetKeyExcept(SDLK_w)
+        if IsKey(SDLK_s):
+            SetKeyExcept(SDLK_s)
 
-            # 공격상태에서 반대편 공격이 동시에 눌릴경우
-            if IsKey(SDLK_q):
-                SetKeyExcept(SDLK_e)
+
+        # 공격상태에서 반대편 공격이 동시에 눌릴경우
+        if IsKey(SDLK_q):
+            SetKeyExcept(SDLK_q)
 
         if isNoneKey((SDLK_e,SDLK_q)) :
             _instance.state.change_state("KEY_NONE")
@@ -167,6 +178,8 @@ class Attack_down:
             # key holding 중이면 Tap처리해준다.
             if GetKey(SDLK_d) == "EXCEPT": SetKeyTap(SDLK_d)
             if GetKey(SDLK_a) == "EXCEPT": SetKeyTap(SDLK_a)
+            if GetKey(SDLK_w) == "EXCEPT": SetKeyTap(SDLK_w)
+            if GetKey(SDLK_s) == "EXCEPT": SetKeyTap(SDLK_s)
 class StateMachine:
     def __init__(self,_instance):
         self.instance = _instance
