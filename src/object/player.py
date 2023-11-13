@@ -1,4 +1,5 @@
 from src.struct.struct import Vec2
+from src.struct.struct import OBJ
 from src.component.ani import Ani
 
 from src.component.Collider import Collider
@@ -56,4 +57,7 @@ class Player:
         self.component["SWORD"] = self.sword
 
     def get_bb(self):
-        self.component["COLLIDER"].get_bb()
+        return self.component["COLLIDER"].get_bb()
+
+    def processColl(self):  # 충돌처리
+        pass

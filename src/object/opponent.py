@@ -4,6 +4,7 @@ from src.component.ani import Ani
 from src.component.Collider import Collider
 from src.component.StateMachine import StateOpponent
 from src.component.Physic import Physic
+from src.mgr.TimeMgr import TimeMgr
 
 
 class Opponent:
@@ -56,4 +57,7 @@ class Opponent:
         self.component["SWORD"] = self.sword
 
     def get_bb(self):
-        self.component["COLLIDER"].get_bb()
+        return self.component["COLLIDER"].get_bb()
+
+    def processColl(self):  # 충돌처리
+        self.pos.x += self.speed/2 * TimeMgr.GetDt()

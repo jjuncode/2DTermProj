@@ -4,6 +4,7 @@ from src.component.Component import Component
 from src.component.StateMachine import Idle, Run, Attack_down, Attack_up, Jump
 from src.component.ani import Ani
 from src.component.effect import Effect
+from src.struct.struct import OBJ
 
 origin_collider_size = Vec2(10, 10)
 
@@ -17,6 +18,11 @@ class Sword(Component):
         # collider
         self.collider = Collider(self, Vec2(self.pos.x, self.pos.y),
                                  Vec2(origin_collider_size.x, origin_collider_size.y))
+        from src.object.player import Player
+        print(type(_owner))
+        if type(_owner) == Player:
+            self.collider.setCollPair([OBJ.kOpponent])     # 적 몸체와 충돌체크
+
         self.component["COLLIDER"] = self.collider
 
         # effect
@@ -64,4 +70,7 @@ class Sword(Component):
         return self.pos
 
     def get_bb(self):
-        self.component["COLLIDER"].get_bb()
+        return self.component["COLLIDER"].get_bb()
+
+    def processColl(self):
+        pass

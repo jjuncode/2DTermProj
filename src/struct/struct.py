@@ -27,4 +27,8 @@ class OBJ(Enum):
     kPlayer_sword = 2
     kOpponent = 3
     kOpponent_sword = 4
-    END = 5
+
+    kTitle_background = 5
+    kTitle_fence = 6
+    kTitle_logo = 7
+    END = 8

@@ -24,4 +24,5 @@ class scene:
         SceneMgr.sceneChange(_scene)
         print(SceneMgr.mgr.cur_scene)
 
-
+    def getObj(self, _OBJ):
+        return self.obj[_OBJ.value]

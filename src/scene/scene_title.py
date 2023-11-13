@@ -1,4 +1,5 @@
 from sdl2 import SDLK_SPACE
+from src.struct.struct import OBJ
 
 from src.scene.scene import scene
 from src.scene.scene_play import scene_play
@@ -12,9 +13,9 @@ class scene_title(scene):
 
     def __init__(self):
         super().__init__()
-        self.obj[0].append(TitleBackground())
-        self.obj[1].append(TitleFence())
-        self.obj[2].append(TitleLogo())
+        self.obj[OBJ.kTitle_background.value].append(TitleBackground())
+        self.obj[OBJ.kTitle_fence.value].append(TitleFence())
+        self.obj[OBJ.kTitle_logo.value].append(TitleLogo())
 
     def updateKey(self):
         if IsTapKey(SDLK_SPACE) :

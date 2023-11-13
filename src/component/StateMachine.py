@@ -222,11 +222,10 @@ class StateOpponent:
         self.cur_state = Idle
         self.cur_state.init(self.instance)
         self.transition = {
-            Idle : { SDLK_e :Attack_down, SDLK_q : Attack_up, SDLK_UP : Run,SDLK_DOWN:Run, SDLK_LEFT : Run, SDLK_RIGHT : Run,SDLK_SPACE : Jump},
-            Run : {SDLK_e : Attack_down, SDLK_q : Attack_up,"KEY_NONE":Idle,SDLK_SPACE : Jump},
-            Attack_up : { SDLK_e :Attack_down, SDLK_UP : Run,SDLK_DOWN:Run, SDLK_LEFT : Run, SDLK_RIGHT : Run, "KEY_NONE":Idle,SDLK_SPACE : Jump},
-            Attack_down: {SDLK_q: Attack_up, SDLK_UP: Run, SDLK_DOWN: Run, SDLK_LEFT: Run, SDLK_RIGHT: Run, "KEY_NONE":Idle,SDLK_SPACE : Jump},
-            Jump : {"GROUND" : Idle, SDLK_UP : Run,SDLK_DOWN:Run, SDLK_LEFT : Run, SDLK_RIGHT : Run}
+            Idle : { SDLK_e :Attack_down, SDLK_q : Attack_up, SDLK_UP : Run,SDLK_DOWN:Run, SDLK_LEFT : Run, SDLK_RIGHT : Run},
+            Run : {SDLK_e : Attack_down, SDLK_q : Attack_up,"KEY_NONE":Idle },
+            Attack_up : { SDLK_e :Attack_down, SDLK_UP : Run,SDLK_DOWN:Run, SDLK_LEFT : Run, SDLK_RIGHT : Run, "KEY_NONE":Idle},
+            Attack_down: {SDLK_q: Attack_up, SDLK_UP: Run, SDLK_DOWN: Run, SDLK_LEFT: Run, SDLK_RIGHT: Run, "KEY_NONE":Idle},
         }
 
     def update(self):
