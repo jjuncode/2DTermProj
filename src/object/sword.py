@@ -19,9 +19,12 @@ class Sword(Component):
         self.collider = Collider(self, Vec2(self.pos.x, self.pos.y),
                                  Vec2(origin_collider_size.x, origin_collider_size.y))
         from src.object.player import Player
+        from src.object.opponent import Opponent
         print(type(_owner))
         if type(_owner) == Player:
-            self.collider.setCollPair([OBJ.kOpponent])     # 적 몸체와 충돌체크
+            self.collider.setCollPair([OBJ.kOpponent,OBJ.kOpponent_sword])     # 플레이어 -> 적 몸체와 충돌체크, 적 칼과 충돌체크
+        elif type(_owner) == Opponent:
+            self.collider.setCollPair([OBJ.kPlayer,OBJ.kOpponent_sword])       # 적 -> 플레이어 몸체와 충돌체크, 플레이어 칼과 충돌체크
 
         self.component["COLLIDER"] = self.collider
 

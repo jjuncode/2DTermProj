@@ -25,9 +25,10 @@ class Collider(Component) :
     def checkColl(self):
         for pair_value in self.collision_pair:
             from src.mgr.SceneMgr import SceneMgr
-            obj_arr = SceneMgr.getCurScene().getObj(pair_value)
+            obj_arr = SceneMgr.getCurScene().getObj(pair_value) # 충돌할 그룹의 obj를 가져온다.
             for obj in obj_arr :
-                if collide(self.get_bb(),obj.get_bb()):
+                print(obj.get_bb())
+                if collide(self.get_bb(),obj.get_bb()):         # 가져온 obj들과 충돌검사를 한다.
                     self.owner.processColl()
                     obj.processColl()
 

@@ -51,11 +51,6 @@ class Player:
     def getCurState(self):
         return self.state.cur_state
 
-    def setSword(self, _sword):
-        # sword
-        self.sword = _sword
-        self.component["SWORD"] = self.sword
-
     def get_bb(self):
         return self.component["COLLIDER"].get_bb()
 

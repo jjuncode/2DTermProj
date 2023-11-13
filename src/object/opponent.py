@@ -51,13 +51,9 @@ class Opponent:
     def getCurState(self):
         return self.state.cur_state
 
-    def setSword(self, _sword):
-        # sword
-        self.sword = _sword
-        self.component["SWORD"] = self.sword
-
     def get_bb(self):
         return self.component["COLLIDER"].get_bb()
 
     def processColl(self):  # 충돌처리
+        print('상대 맞음')
         self.pos.x += self.speed/2 * TimeMgr.GetDt()
