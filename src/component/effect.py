@@ -12,7 +12,7 @@ class Effect(Component):
         # < Component >
         self.component = {}
 
-        # collider
+        # ani
         self.ani = ani
         self.ani.owner = self
 

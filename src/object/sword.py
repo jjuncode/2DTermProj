@@ -24,7 +24,7 @@ class Sword(Component):
         if type(_owner) == Player:
             self.collider.setCollPair([OBJ.kOpponent,OBJ.kOpponent_sword])     # 플레이어 -> 적 몸체와 충돌체크, 적 칼과 충돌체크
         elif type(_owner) == Opponent:
-            self.collider.setCollPair([OBJ.kPlayer,OBJ.kPlayer_sword])       # 적 -> 플레이어 몸체와 충돌체크, 플레이어 칼과 충돌체크
+            self.collider.setCollPair([OBJ.kPlayer,OBJ.kPlayer_sword])         # 적 -> 플레이어 몸체와 충돌체크, 플레이어 칼과 충돌체크
 
         self.component["COLLIDER"] = self.collider
 
@@ -32,12 +32,14 @@ class Sword(Component):
         self.cur_effect = None
         self.effect ={}
 
+        # player effect
         if type(_owner) == Player:
             self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos, Ani(self, self.pos, "parring_purple.png", [5], [123], [30]
                                                                  , 0.15, Vec2(2, 5)))
 
             self.effect["EFFECT_ATTACK_DOWN"] = Effect(self,self.pos,Ani(self, self.pos, "slash_purple.png", [5], [94], [38]
                            ,0.15,Vec2(2,5)))
+        # opponent effect
         elif type(_owner) == Opponent:
             self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos,
                                                      Ani(self, self.pos, "spr_master_slash.png", [5], [123], [30]
@@ -57,15 +59,18 @@ class Sword(Component):
 
         elif self.owner.getCurState() == Attack_up:
             self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame * self.owner.dir
-            self.component["COLLIDER"].scale.x = 10 + 10 * (self.owner.ani.cur_frame - 1)* self.owner.dir
-            self.component["COLLIDER"].scale.y = 10 + 22 * (self.owner.ani.cur_frame - 1)* self.owner.dir
+            self.component["COLLIDER"].scale.x = 10 + 10 * (self.owner.ani.cur_frame-1)
+            self.component["COLLIDER"].scale.y = 10 + 22 * (self.owner.ani.cur_frame-1)
             self.cur_effect = "EFFECT_ATTACK_UP"
 
         elif self.owner.getCurState() == Attack_down:
             self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame* self.owner.dir
-            self.component["COLLIDER"].scale.x = 10 + 15 * (self.owner.ani.cur_frame - 1)* self.owner.dir
-            self.component["COLLIDER"].scale.y = 10 + 15 * (self.owner.ani.cur_frame - 1)* self.owner.dir
+            self.component["COLLIDER"].scale.x = 10 + 15 * (self.owner.ani.cur_frame-1 )
+            self.component["COLLIDER"].scale.y = 10 + 15 * (self.owner.ani.cur_frame-1 )
             self.cur_effect = "EFFECT_ATTACK_DOWN"
+
+        print(self.collider.pos.x, self.collider.pos.y)
+        print(self.collider.scale.x, self.collider.scale.y )
 
         # effect
         if self.cur_effect != None :
