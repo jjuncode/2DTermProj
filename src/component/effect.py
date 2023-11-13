@@ -4,8 +4,6 @@ from src.component.Component import Component
 from src.component.StateMachine import Idle, Run, Attack_down, Attack_up
 from src.component.ani import Ani
 
-origin_collider_size = Vec2(10, 10)
-
 
 class Effect(Component):
     def __init__(self, _owner, _pos, ani):
@@ -21,14 +19,14 @@ class Effect(Component):
         self.component["ANI"] = self.ani
 
     def update(self):
-        self.pos = Vec2(self.owner.pos.x,self.owner.pos.y+50)
+        self.pos = Vec2(self.owner.pos.x, self.owner.pos.y + 50)
 
         for key, value in self.component.items():
             value.update()
 
     def render(self):
         if self.owner.owner.getCurState() == Attack_up or self.owner.owner.getCurState() == Attack_down:
-            if self.owner.owner.ani.cur_frame ==0 :
+            if self.owner.owner.ani.cur_frame == 0:
                 self.ani.cur_frame = 0
             for key, value in self.component.items():
                 value.render()

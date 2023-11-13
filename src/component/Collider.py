@@ -27,10 +27,11 @@ class Collider(Component) :
             from src.mgr.SceneMgr import SceneMgr
             obj_arr = SceneMgr.getCurScene().getObj(pair_value) # 충돌할 그룹의 obj를 가져온다.
             for obj in obj_arr :
-                print(obj.get_bb())
                 if collide(self.get_bb(),obj.get_bb()):         # 가져온 obj들과 충돌검사를 한다.
                     self.owner.processColl()
                     obj.processColl()
+                    print("충돌객체 : ", type(self.owner))
+                    print("충돌객체 : ", type(obj))
 
 
 def collide(a, b):
