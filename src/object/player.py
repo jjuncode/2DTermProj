@@ -1,6 +1,6 @@
 from src.struct.struct import Vec2
-from src.struct.struct import OBJ
 from src.component.ani import Ani
+from src.component.effect import Effect
 
 from src.component.Collider import Collider
 from src.component.StateMachine import StatePlayer
@@ -33,6 +33,15 @@ class Player:
         self.physic.destn_y = self.destn_y
         self.component["PHYSIC"] = self.physic
 
+        # effect
+        self.cur_effect = None
+        self.effect = {}
+        self.effect["BLOOD"] = Effect(self, self.pos,
+                                      Ani(self, self.pos, "effect_blood.png", [5], [128], [171]
+                                                         , 0.15, Vec2(1.5, 1.5),True)
+                                      , Vec2 (-80,60))
+        self.component["EFFECT"] = self.effect["BLOOD"]
+
         # < StateMachine >
         self.state = StatePlayer(self)
 
@@ -56,4 +65,4 @@ class Player:
         return self.component["COLLIDER"].get_bb()
 
     def processColl(self):  # 충돌처리
-        pass
+        self.cur_effect = self.effect["BLOOD"]

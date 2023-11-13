@@ -34,20 +34,22 @@ class Sword(Component):
 
         # player effect
         if type(_owner) == Player:
-            self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos, Ani(self, self.pos, "parring_purple.png", [5], [123], [30]
-                                                                 , 0.15, Vec2(2, 5)))
+            self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos
+                                                     , Ani(self, self.pos, "parring_purple.png", [5], [123], [30] , 0.15, Vec2(2, 5))
+                                                     , Vec2 (0,30))
 
-            self.effect["EFFECT_ATTACK_DOWN"] = Effect(self,self.pos,Ani(self, self.pos, "slash_purple.png", [5], [94], [38]
-                           ,0.15,Vec2(2,5)))
+            self.effect["EFFECT_ATTACK_DOWN"] = Effect(self,self.pos
+                                                       ,Ani(self, self.pos, "slash_purple.png", [5], [94], [38],0.15,Vec2(2,5))
+                                                       , Vec2 (0,30))
         # opponent effect
         elif type(_owner) == Opponent:
             self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos,
-                                                     Ani(self, self.pos, "spr_master_slash.png", [5], [123], [30]
-                                                         , 0.15, Vec2(2, 5),True))
+                                                     Ani(self, self.pos, "spr_master_slash.png", [5], [123], [30], 0.15, Vec2(2, 5),True)
+                                                     , Vec2 (0,30))
 
             self.effect["EFFECT_ATTACK_DOWN"] = Effect(self, self.pos,
-                                                       Ani(self, self.pos, "spr_dragon_slash.png", [5], [94], [38]
-                                                           , 0.15, Vec2(2, 5),True))
+                                                       Ani(self, self.pos, "spr_dragon_slash.png", [5], [94], [38], 0.15, Vec2(2, 5),True)
+                                                       , Vec2 (0,30))
     def update(self):
         if self.owner.getCurState() == Idle or self.owner.getCurState() == Run or self.owner.getCurState()==Jump:
             self.pos = self.owner.pos
@@ -68,9 +70,6 @@ class Sword(Component):
             self.component["COLLIDER"].scale.x = 10 + 15 * (self.owner.ani.cur_frame-1 )
             self.component["COLLIDER"].scale.y = 10 + 15 * (self.owner.ani.cur_frame-1 )
             self.cur_effect = "EFFECT_ATTACK_DOWN"
-
-        print(self.collider.pos.x, self.collider.pos.y)
-        print(self.collider.scale.x, self.collider.scale.y )
 
         # effect
         if self.cur_effect != None :
