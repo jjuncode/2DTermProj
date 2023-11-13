@@ -11,6 +11,7 @@ class Opponent:
     def __init__(self):
         self.pos = Vec2(600, 300)
         self.speed = 200
+        self.dir = -1 # 음의 x축방향이 정면
 
         # < Component >
         self.component = {}

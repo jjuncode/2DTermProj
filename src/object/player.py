@@ -11,6 +11,7 @@ class Player:
     def __init__(self):
         self.pos = Vec2(200, 300)
         self.speed = 200
+        self.dir = 1 # 양의 x축방향이 정면
 
         # < Component >
         self.component = {}

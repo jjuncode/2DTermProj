@@ -31,12 +31,21 @@ class Sword(Component):
         # effect
         self.cur_effect = None
         self.effect ={}
-        self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos, Ani(self, self.pos, "spr_master_slash.png", [5], [123], [30]
-                                                             , 0.15, Vec2(2, 5)))
 
-        self.effect["EFFECT_ATTACK_DOWN"] = Effect(self,self.pos,Ani(self, self.pos, "spr_dragon_slash.png", [5], [94], [38]
-                       ,0.15,Vec2(2,5)))
+        if type(_owner) == Player:
+            self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos, Ani(self, self.pos, "spr_master_slash.png", [5], [123], [30]
+                                                                 , 0.15, Vec2(2, 5)))
 
+            self.effect["EFFECT_ATTACK_DOWN"] = Effect(self,self.pos,Ani(self, self.pos, "spr_dragon_slash.png", [5], [94], [38]
+                           ,0.15,Vec2(2,5)))
+        elif type(_owner) == Opponent:
+            self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos,
+                                                     Ani(self, self.pos, "spr_master_slash.png", [5], [123], [30]
+                                                         , 0.15, Vec2(2, 5),True))
+
+            self.effect["EFFECT_ATTACK_DOWN"] = Effect(self, self.pos,
+                                                       Ani(self, self.pos, "spr_dragon_slash.png", [5], [94], [38]
+                                                           , 0.15, Vec2(2, 5),True))
     def update(self):
         if self.owner.getCurState() == Idle or self.owner.getCurState() == Run or self.owner.getCurState()==Jump:
             self.pos = self.owner.pos
@@ -47,15 +56,15 @@ class Sword(Component):
                 self.effect[self.cur_effect].ani.cur_frame = 0
 
         elif self.owner.getCurState() == Attack_up:
-            self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame
-            self.component["COLLIDER"].scale.x = 10 + 10 * (self.owner.ani.cur_frame - 1)
-            self.component["COLLIDER"].scale.y = 10 + 22 * (self.owner.ani.cur_frame - 1)
+            self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame * self.owner.dir
+            self.component["COLLIDER"].scale.x = 10 + 10 * (self.owner.ani.cur_frame - 1)* self.owner.dir
+            self.component["COLLIDER"].scale.y = 10 + 22 * (self.owner.ani.cur_frame - 1)* self.owner.dir
             self.cur_effect = "EFFECT_ATTACK_UP"
 
         elif self.owner.getCurState() == Attack_down:
-            self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame
-            self.component["COLLIDER"].scale.x = 10 + 15 * (self.owner.ani.cur_frame - 1)
-            self.component["COLLIDER"].scale.y = 10 + 15 * (self.owner.ani.cur_frame - 1)
+            self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame* self.owner.dir
+            self.component["COLLIDER"].scale.x = 10 + 15 * (self.owner.ani.cur_frame - 1)* self.owner.dir
+            self.component["COLLIDER"].scale.y = 10 + 15 * (self.owner.ani.cur_frame - 1)* self.owner.dir
             self.cur_effect = "EFFECT_ATTACK_DOWN"
 
         # effect
