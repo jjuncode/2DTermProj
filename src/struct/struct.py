@@ -1,3 +1,5 @@
+from enum import Enum
+
 class Vec2:
     def __init__(self,_x,_y):
         self.x = _x
@@ -18,3 +20,11 @@ class Vec2:
     #     if isinstance(other, Vec2):
     #         # 두 객체를 곱하고 새로운 객체를 반환
     #         return Vec2(self.x * other.x,self.y*other.y)
+
+class OBJ(Enum):
+    kBackground = 0
+    kPlayer = 1
+    kPlayer_sword = 2
+    kOpponent = 3
+    kOpponent_sword = 4
+    END = 5

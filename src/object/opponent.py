@@ -2,13 +2,13 @@ from src.struct.struct import Vec2
 from src.component.ani import Ani
 
 from src.component.Collider import Collider
-from src.component.StateMachine import StatePlayer
+from src.component.StateMachine import StateOpponent
 from src.component.Physic import Physic
 
 
-class Player:
+class Opponent:
     def __init__(self):
-        self.pos = Vec2(200, 300)
+        self.pos = Vec2(600, 300)
         self.speed = 200
 
         # < Component >
@@ -18,7 +18,7 @@ class Player:
         self.cur_ani = 0
         self.ani_reset = False
         self.ani = Ani(self, self.pos, "Character.png", [8, 12, 7, 7], [128, 128, 200, 200], [130, 120, 203, 203]
-                       , 0.15, Vec2(3, 3))
+                       , 0.15, Vec2(3, 3),True)
         self.component["ANI"] = self.ani
 
         # collider
@@ -32,7 +32,7 @@ class Player:
         self.component["PHYSIC"] = self.physic
 
         # < StateMachine >
-        self.state = StatePlayer(self)
+        self.state = StateOpponent(self)
 
     def render(self):
         self.state.render()

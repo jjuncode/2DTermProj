@@ -14,4 +14,15 @@ class Collider(Component) :
                        , self.pos.x + self.scale.x , self.pos.y - self.scale.y )
 
     def get_bb(self): # lb rt
-        return self.pos.x - self.scale.x , self.pos.y - self.scale.y , self.pos.x + self.scale, self.pos.y + self.scale.y
+        return self.pos.x - self.scale.x , self.pos.y - self.scale.y , self.pos.x + self.scale.x, self.pos.y + self.scale.y
+
+def collide(a, b):
+    la, ba, ra, ta = a.get_bb()
+    lb, bb, rb, tb = b.get_bb()
+
+    if la > rb: return False
+    if ra < lb: return False
+    if ta < bb: return False
+    if ba > tb: return False
+
+    return True

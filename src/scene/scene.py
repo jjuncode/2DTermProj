@@ -1,24 +1,14 @@
-def collide(a, b):
-    la, ba, ra, ta = a.get_bb()
-    lb, bb, rb, tb = b.get_bb()
-
-    if la > rb: return False
-    if ra < lb: return False
-    if ta < bb: return False
-    if ba > tb: return False
-
-    return True
+from src.struct.struct import OBJ
 
 class scene:
     def __init__(self):
-        self.obj = [[],[],[]]
+        self.obj = [ [] for _ in range(0,OBJ.END.value)] # Obj Group으로 분류
         self.coll_group = {}
 
     def update(self):
         for layer in self.obj:
             for obj in layer:
                 obj.update()
-        self.checkCollision()
 
     def render(self):
         for layer in self.obj:
@@ -27,23 +17,6 @@ class scene:
 
     def updateKey(self):
         pass
-
-    def checkCollision(self):
-        for group, pairs in self.coll_group.items():
-            for a in pairs[0]:
-                for b in pairs[1]:
-                    if collide(a, b):
-                        a.handle_collision(group, b)
-                        b.handle_collision(group, a)
-
-    def add_collision_pair(self, group, a=None, b=None):  # a와 b사이에 충돌검사가 필요하다는 점을 등록
-        if group not in self.coll_group:
-            print(f"New group {group} added...")
-            self.coll_group[group] = [[], []]
-        if a:
-            self.coll_group[group][0].append(a)
-        if b:
-            self.coll_group[group][1].append(b)
 
     @staticmethod
     def sceneChange(_scene):
