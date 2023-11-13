@@ -4,7 +4,6 @@ from src.struct.struct import Vec2
 from src.component.Component import Component
 from src.mgr.TimeMgr import TimeMgr
 
-
 class Physic(Component):
     gravity = Vec2(0, -9. *18 )
     speed = 15  # 물리 적용 offset값
@@ -30,6 +29,12 @@ class Physic(Component):
             self.owner.pos.y = self.destn_y
             self.accel.y = 0
 
+        # x방향 가속도가 있으면 점차 감소
+        if self.accel.x > 0 or self.accel.x < 0 :
+            print(self.accel.x)
+            self.accel.x *= 0.9
+            if abs(self.accel.x) < 10 : self.accel.x = 0 # 10보다 작으면 없는셈으로 친다.
+
         velo_after = Vec2(self.accel.x * dt, self.accel.y * dt)
 
         add_speed = Vec2(self.velo.x + velo_after.x, self.velo.y + velo_after.y)
@@ -42,3 +47,9 @@ class Physic(Component):
 
     def render(self):
         pass
+
+    def addForce(self,_vec):
+        self.accel.x += _vec.x
+        if _vec.y > 0 :
+            self.accel.y += _vec.y
+            self.owner.pos.y +=1

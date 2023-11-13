@@ -29,7 +29,6 @@ class Sword(Component):
         self.component["COLLIDER"] = self.collider
 
         # effect
-        self.cur_effect = None
         self.effect ={}
 
         # player effect
@@ -56,31 +55,26 @@ class Sword(Component):
             self.component["COLLIDER"].scale.x = origin_collider_size.x
             self.component["COLLIDER"].scale.y = origin_collider_size.y
 
-            if self.cur_effect == "EFFECT_ATTACK_UP" or self.cur_effect == "EFFECT_ATTACK_DOWN":
-                self.effect[self.cur_effect].ani.cur_frame = 0
-
         elif self.owner.getCurState() == Attack_up:
             self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame * self.owner.dir
             self.component["COLLIDER"].scale.x = 10 + 10 * (self.owner.ani.cur_frame-1)
             self.component["COLLIDER"].scale.y = 10 + 22 * (self.owner.ani.cur_frame-1)
-            self.cur_effect = "EFFECT_ATTACK_UP"
+            self.component["EFFECT"] = self.effect["EFFECT_ATTACK_UP"]
 
         elif self.owner.getCurState() == Attack_down:
             self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame* self.owner.dir
             self.component["COLLIDER"].scale.x = 10 + 15 * (self.owner.ani.cur_frame-1 )
             self.component["COLLIDER"].scale.y = 10 + 15 * (self.owner.ani.cur_frame-1 )
-            self.cur_effect = "EFFECT_ATTACK_DOWN"
-
-        # effect
-        if self.cur_effect != None :
-            self.component["EFFECT"] = self.effect[self.cur_effect]
+            self.component["EFFECT"] = self.effect["EFFECT_ATTACK_DOWN"]
 
         for key, value in self.component.items():
-            value.update()
+            if value != None:
+                value.update()
 
     def render(self):
         for key, value in self.component.items():
-            value.render()
+            if value != None:
+                value.render()
 
     def getPos(self):
         return self.pos
@@ -90,3 +84,6 @@ class Sword(Component):
 
     def processColl(self):
         pass
+
+    def delEffect(self):
+        self.component["EFFECT"] = None

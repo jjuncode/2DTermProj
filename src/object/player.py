@@ -34,26 +34,25 @@ class Player:
         self.component["PHYSIC"] = self.physic
 
         # effect
-        self.cur_effect = None
         self.effect = {}
         self.effect["BLOOD"] = Effect(self, self.pos,
-                                      Ani(self, self.pos, "effect_blood.png", [5], [128], [171]
+                                      Ani(self, self.pos, "effect_blood2.png", [4], [128], [171]
                                                          , 0.15, Vec2(1.5, 1.5),True)
                                       , Vec2 (-80,60))
-        self.component["EFFECT"] = self.effect["BLOOD"]
-
         # < StateMachine >
         self.state = StatePlayer(self)
 
     def render(self):
         self.state.render()
         for key, value in self.component.items():
-            value.render()
+            if value != None:
+                value.render()
 
     def update(self):
         self.state.update()
         for key, value in self.component.items():
-            value.update()
+            if value != None:
+               value.update()
 
     def getPos(self):
         return Vec2(self.pos.x, self.pos.y)
@@ -65,4 +64,8 @@ class Player:
         return self.component["COLLIDER"].get_bb()
 
     def processColl(self):  # 충돌처리
-        self.cur_effect = self.effect["BLOOD"]
+        self.component["EFFECT"] = self.effect["BLOOD"]
+
+    def delEffect(self):
+        self.component["EFFECT"] = None
+        self.component["PHYSIC"].addForce(Vec2(-200,50))

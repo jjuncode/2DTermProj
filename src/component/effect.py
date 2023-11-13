@@ -22,6 +22,9 @@ class Effect(Component):
     def update(self):
         self.pos = Vec2(self.owner.pos.x + self.offset.x, self.owner.pos.y + self.offset.y)
 
+        # effect는 한번 재생하면 종료한다.
+        if self.ani.cur_frame == self.ani.max_frame[self.ani.cur_ani]-1 : self.owner.delEffect()
+
         for key, value in self.component.items():
             value.update()
 
