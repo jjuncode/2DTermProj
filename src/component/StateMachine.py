@@ -1,6 +1,8 @@
 from src.mgr.KeyMgr import GetKey,IsKey,isNoneKey, SetKeyExcept,SetKeyTap,IsTapKey
 from src.mgr.TimeMgr import TimeMgr
-from pico2d import SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_q,SDLK_e,SDLK_SPACE,SDLK_LEFT,SDLK_RIGHT,SDLK_UP,SDLK_DOWN
+from pico2d import SDLK_a, SDLK_d, SDLK_w, SDLK_s, SDLK_q, SDLK_e, SDLK_SPACE, SDLK_LEFT, SDLK_RIGHT, SDLK_UP, \
+    SDLK_DOWN
+
 
 class Idle:
 
@@ -232,7 +234,6 @@ class StateOpponent:
         self.cur_state.update(self.instance)
         self.update_key()
         self.change_state(None)
-
 
     def render(self):
         self.cur_state.render(self.instance)

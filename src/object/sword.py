@@ -12,6 +12,8 @@ class Sword(Component):
     def __init__(self, _owner, _pos):
         super().__init__(_owner, _pos)
 
+        self.damage = 2
+
         # < Component >
         self.component = {}
 
@@ -82,8 +84,15 @@ class Sword(Component):
     def get_bb(self):
         return self.component["COLLIDER"].get_bb()
 
-    def processColl(self):
-        pass
+    def processColl(self, _obj):
+        _obj.component["PHYSIC"].addForce(Vec2(-500,0))
+        if _obj.component["PHYSIC"].getAccel().y < 500 :
+            _obj.component["PHYSIC"].addForce(Vec2(0, 50))
+
+        _obj.hp -= self.damage  # 데미지 입힘
 
     def delEffect(self):
         self.component["EFFECT"] = None
+
+    def setDamage(self, _rhs):
+        self.damage = _rhs

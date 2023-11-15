@@ -1,3 +1,5 @@
+from pico2d import load_image
+
 from src.struct.struct import Vec2
 from src.component.ani import Ani
 from src.component.effect import Effect
@@ -12,6 +14,7 @@ class Player:
         self.pos = Vec2(200, 300)
         self.speed = 200
         self.dir = 1 # 양의 x축방향이 정면
+        self.hp = 100
 
         # < Component >
         self.component = {}
@@ -36,7 +39,7 @@ class Player:
         # effect
         self.effect = {}
         self.effect["BLOOD"] = Effect(self, self.pos,
-                                      Ani(self, self.pos, "effect_blood2.png", [4], [128], [171]
+                                      Ani(self, self.pos, "effect_blood.png", [4], [128], [171]
                                                          , 0.15, Vec2(1.5, 1.5),True)
                                       , Vec2 (-80,60))
         # < StateMachine >
@@ -63,9 +66,10 @@ class Player:
     def get_bb(self):
         return self.component["COLLIDER"].get_bb()
 
-    def processColl(self):  # 충돌처리
+    def processColl(self, _obj):  # 충돌처리
         self.component["EFFECT"] = self.effect["BLOOD"]
+        print("현재 체력 : ",self.hp)
+        pass
 
     def delEffect(self):
         self.component["EFFECT"] = None
-        self.component["PHYSIC"].addForce(Vec2(-200,50))

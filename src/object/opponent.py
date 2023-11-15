@@ -12,6 +12,7 @@ class Opponent:
         self.pos = Vec2(600, 300)
         self.speed = 200
         self.dir = -1 # 음의 x축방향이 정면
+        self.hp = 100
 
         # < Component >
         self.component = {}
@@ -55,6 +56,6 @@ class Opponent:
     def get_bb(self):
         return self.component["COLLIDER"].get_bb()
 
-    def processColl(self):  # 충돌처리
+    def processColl(self, _obj):  # 충돌처리
         print('상대 맞음')
         self.pos.x += self.speed/2 * TimeMgr.GetDt()
