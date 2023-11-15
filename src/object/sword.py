@@ -1,7 +1,7 @@
-from src.component.Collider import Collider
+from src.component.collider import Collider
 from src.struct.struct import Vec2
-from src.component.Component import Component
-from src.component.StateMachine import Idle, Run, Attack_down, Attack_up, Jump
+from src.component.component import Component
+from src.component.stateMachine import Idle, Run, Attack_down, Attack_up, Jump
 from src.component.ani import Ani
 from src.component.effect import Effect
 from src.struct.struct import OBJ
@@ -84,12 +84,17 @@ class Sword(Component):
     def get_bb(self):
         return self.component["COLLIDER"].get_bb()
 
-    def processColl(self, _obj):
-        _obj.component["PHYSIC"].addForce(Vec2(-500,0))
-        if _obj.component["PHYSIC"].getAccel().y < 500 :
-            _obj.component["PHYSIC"].addForce(Vec2(0, 50))
+    def processColl(self, _obj)
+        print(type(_obj))
+        if type(_obj) == type(Sword):
+            pass
+        # 몸과 충돌시
+        else :
+            _obj.component["PHYSIC"].addForcee(Vec2(-500,0))
+            if _obj.component["PHYSIC"].getAccel().y < 500 :
+                _obj.component["PHYSIC"].addForce(Vec2(0, 50))
 
-        _obj.hp -= self.damage  # 데미지 입힘
+            _obj.hp -= self.damage  # 데미지 입힘
 
     def delEffect(self):
         self.component["EFFECT"] = None

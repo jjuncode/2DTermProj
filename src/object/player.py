@@ -4,10 +4,10 @@ from src.struct.struct import Vec2
 from src.component.ani import Ani
 from src.component.effect import Effect
 
-from src.component.Collider import Collider
-from src.component.StateMachine import StatePlayer
-from src.component.Physic import Physic
-
+from src.component.collider import Collider
+from src.component.stateMachine import StatePlayer
+from src.component.physic import Physic
+from src.component.ui import UI
 
 class Player:
     def __init__(self):
@@ -40,10 +40,14 @@ class Player:
         self.effect = {}
         self.effect["BLOOD"] = Effect(self, self.pos,
                                       Ani(self, self.pos, "effect_blood.png", [4], [128], [171]
-                                                         , 0.15, Vec2(1.5, 1.5),True)
+                                                         , 0.2, Vec2(1.5, 1.5),True)
                                       , Vec2 (-80,60))
         # < StateMachine >
         self.state = StatePlayer(self)
+
+        # UI
+        self.ui = UI(self,self.pos)
+        self.component["UI"] = self.ui
 
     def render(self):
         self.state.render()
@@ -67,6 +71,7 @@ class Player:
         return self.component["COLLIDER"].get_bb()
 
     def processColl(self, _obj):  # 충돌처리
+        self.effect["BLOOD"].resetFrame()
         self.component["EFFECT"] = self.effect["BLOOD"]
         print("현재 체력 : ",self.hp)
         pass

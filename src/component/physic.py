@@ -1,7 +1,7 @@
-from src.component.Collider import Collider
-from src.component.StateMachine import Jump
+from src.component.collider import Collider
+from src.component.stateMachine import Jump
 from src.struct.struct import Vec2
-from src.component.Component import Component
+from src.component.component import Component
 from src.mgr.TimeMgr import TimeMgr
 
 class Physic(Component):

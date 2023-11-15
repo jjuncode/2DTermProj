@@ -1,5 +1,5 @@
 from pico2d import draw_rectangle
-from src.component.Component import Component
+from src.component.component import Component
 
 
 class Collider(Component) :

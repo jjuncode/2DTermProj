@@ -1,4 +1,4 @@
-from src.component.Component import Component
+from src.component.component import Component
 from pico2d import load_image
 from src.mgr.TimeMgr import TimeMgr
 

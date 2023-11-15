@@ -1,7 +1,7 @@
 from src.struct.struct import Vec2
 from pico2d import load_image
 from src.component.ani import CreatePath
-from src.component.Physic import Physic
+from src.component.physic import Physic
 
 class TitleFence:
     def __init__(self):

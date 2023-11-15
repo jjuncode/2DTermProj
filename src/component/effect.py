@@ -1,7 +1,7 @@
-from src.component.Collider import Collider
+from src.component.collider import Collider
 from src.struct.struct import Vec2
-from src.component.Component import Component
-from src.component.StateMachine import Idle, Run, Attack_down, Attack_up
+from src.component.component import Component
+from src.component.stateMachine import Idle, Run, Attack_down, Attack_up
 from src.component.ani import Ani
 
 
@@ -39,3 +39,6 @@ class Effect(Component):
 
     def getPos(self):
         return self.pos
+
+    def resetFrame(self):
+        self.ani.cur_frame = 0
