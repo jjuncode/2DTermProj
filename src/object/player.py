@@ -1,6 +1,7 @@
 from pico2d import load_image
 
 from src.mgr.TimeMgr import TimeMgr
+from src.scene.scene_result import scene_result
 from src.struct.struct import Vec2
 from src.component.ani import Ani
 from src.component.effect import Effect
@@ -45,7 +46,7 @@ class Player:
                                       , Vec2 (-80,60))
         self.effect["POINT"] = Effect(self, self.pos,
                                       Ani(self, self.pos, "effect_point.png", [5], [80], [80]
-                                                         , 0.2, Vec2(1.5, 1.5))
+                                                         , 0.2, Vec2(3, 3))
                                       , Vec2 (0,60))
 
 
@@ -67,6 +68,8 @@ class Player:
         for key, value in self.component.items():
             if value != None:
                value.update()
+
+        if self.hp < 0 : self.defeat()
 
     def getPos(self):
         return Vec2(self.pos.x, self.pos.y)
@@ -111,3 +114,7 @@ class Player:
     def changeEffect(self,_effect):
         self.effect[_effect].resetFrame()
         self.component["EFFECT"] = self.effect[_effect]
+
+    def defeat(self):
+        from src.mgr.SceneMgr import SceneMgr
+        SceneMgr.getCurScene().sceneChange(scene_result)

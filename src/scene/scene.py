@@ -22,7 +22,6 @@ class scene:
     def sceneChange(_scene):
         from src.mgr.SceneMgr import SceneMgr
         SceneMgr.sceneChange(_scene)
-        print(SceneMgr.mgr.cur_scene)
 
     def getObj(self, _OBJ):
         return self.obj[_OBJ.value]

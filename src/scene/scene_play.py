@@ -11,7 +11,7 @@ class scene_play(scene):
     def __init__(self):
         super().__init__()
         # Background
-        background = BackGround()
+        background = BackGround("BACKGROUND")
 
         # Player
         player = Player()
