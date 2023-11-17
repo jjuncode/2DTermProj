@@ -9,6 +9,7 @@ class Effect(Component):
     def __init__(self, _owner, _pos, ani,_offset=Vec2(0,0)):
         super().__init__(_owner, _pos)
         self.offset = _offset
+        self.pos_set = False
 
         # < Component >
         self.component = {}
@@ -20,7 +21,8 @@ class Effect(Component):
         self.component["ANI"] = self.ani
 
     def update(self):
-        self.pos = Vec2(self.owner.pos.x + self.offset.x, self.owner.pos.y + self.offset.y)
+        if not self.pos_set:
+            self.pos = Vec2(self.owner.pos.x + self.offset.x, self.owner.pos.y + self.offset.y)
 
         # effect는 한번 재생하면 종료한다.
         if self.ani.cur_frame == self.ani.max_frame[self.ani.cur_ani]-1 : self.owner.delEffect()
@@ -42,3 +44,7 @@ class Effect(Component):
 
     def resetFrame(self):
         self.ani.cur_frame = 0
+
+    def setPos(self,_rhs):
+        self.pos = _rhs
+        self.pos_set = True # 위치고장

@@ -1,4 +1,4 @@
-from src.mgr.KeyMgr import GetKey,IsKey,isNoneKey, SetKeyExcept,SetKeyTap,IsTapKey
+from src.mgr.KeyMgr import GetKey,IsKey,isNoneKey, SetKeyExcept,SetKeyTap,IsTapKey,SetKeyNone
 from src.mgr.TimeMgr import TimeMgr
 from pico2d import SDLK_a, SDLK_d, SDLK_w, SDLK_s, SDLK_q, SDLK_e, SDLK_SPACE, SDLK_LEFT, SDLK_RIGHT, SDLK_UP, \
     SDLK_DOWN
@@ -218,6 +218,10 @@ class StatePlayer:
     def update_key(self):
         pass
 
+    def attackRelease(self):
+        SetKeyNone(SDLK_e)
+        SetKeyNone(SDLK_q)
+
 class StateOpponent:
     def __init__(self,_instance):
         self.instance = _instance
@@ -251,3 +255,7 @@ class StateOpponent:
 
     def update_key(self):
         pass
+
+    def attackRelease(self):
+        SetKeyNone(SDLK_e)
+        SetKeyNone(SDLK_q)

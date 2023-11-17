@@ -1,4 +1,5 @@
 from src.component.collider import Collider
+from src.mgr.TimeMgr import TimeMgr
 from src.struct.struct import Vec2
 from src.component.component import Component
 from src.component.stateMachine import Idle, Run, Attack_down, Attack_up, Jump
@@ -6,13 +7,14 @@ from src.component.ani import Ani
 from src.component.effect import Effect
 from src.struct.struct import OBJ
 
-origin_collider_size = Vec2(10, 10)
+origin_collider_size = Vec2(0, 0)
 
 class Sword(Component):
     def __init__(self, _owner, _pos):
         super().__init__(_owner, _pos)
 
         self.damage = 2
+        self.is_paryying = False
 
         # < Component >
         self.component = {}
@@ -33,6 +35,10 @@ class Sword(Component):
         # effect
         self.effect ={}
 
+        # parrying effect
+        self.effect["EFFECT_PARRYING"] = Effect(self, self.pos
+                                                     , Ani(self, self.pos, "spark.png", [5], [70], [64] , 0.15, Vec2(7, 7))
+                                                     , Vec2 (0,30))
         # player effect
         if type(_owner) == Player:
             self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos
@@ -52,26 +58,37 @@ class Sword(Component):
                                                        Ani(self, self.pos, "spr_dragon_slash.png", [5], [94], [38], 0.15, Vec2(2, 5),True)
                                                        , Vec2 (0,30))
     def update(self):
+        self.is_paryying = False    # 패링 해제
+
+        for key, value in self.component.items():
+            if value != None:
+                value.update()
+
         if self.owner.getCurState() == Idle or self.owner.getCurState() == Run or self.owner.getCurState()==Jump:
             self.pos = self.owner.pos
             self.component["COLLIDER"].scale.x = origin_collider_size.x
             self.component["COLLIDER"].scale.y = origin_collider_size.y
 
-        elif self.owner.getCurState() == Attack_up:
-            self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame * self.owner.dir
-            self.component["COLLIDER"].scale.x = 10 + 10 * (self.owner.ani.cur_frame-1)
-            self.component["COLLIDER"].scale.y = 10 + 22 * (self.owner.ani.cur_frame-1)
-            self.component["EFFECT"] = self.effect["EFFECT_ATTACK_UP"]
+        # 패링 -> 흠..
+        if self.is_paryying :
+            self.component["COLLIDER"].pos = self.owner.pos
+            self.component["COLLIDER"].scale.x = origin_collider_size.x
+            self.component["COLLIDER"].scale.y = origin_collider_size.y
 
-        elif self.owner.getCurState() == Attack_down:
-            self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame* self.owner.dir
-            self.component["COLLIDER"].scale.x = 10 + 15 * (self.owner.ani.cur_frame-1 )
-            self.component["COLLIDER"].scale.y = 10 + 15 * (self.owner.ani.cur_frame-1 )
-            self.component["EFFECT"] = self.effect["EFFECT_ATTACK_DOWN"]
+        # 패링중일 때는 공격이펙트 안나옴
+        else :
+            if self.owner.getCurState() == Attack_up :
+                self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame * self.owner.dir
+                self.component["COLLIDER"].scale.x = 10 + 10 * (self.owner.ani.cur_frame-1)
+                self.component["COLLIDER"].scale.y = 10 + 22 * (self.owner.ani.cur_frame-1)
+                self.component["EFFECT"] = self.effect["EFFECT_ATTACK_UP"]
 
-        for key, value in self.component.items():
-            if value != None:
-                value.update()
+            elif self.owner.getCurState() == Attack_down :
+                self.pos.x = self.owner.getPos().x + 25 * self.owner.ani.cur_frame* self.owner.dir
+                self.component["COLLIDER"].scale.x = 10 + 15 * (self.owner.ani.cur_frame-1 )
+                self.component["COLLIDER"].scale.y = 10 + 15 * (self.owner.ani.cur_frame-1 )
+                self.component["EFFECT"] = self.effect["EFFECT_ATTACK_DOWN"]
+
 
     def render(self):
         for key, value in self.component.items():
@@ -84,17 +101,20 @@ class Sword(Component):
     def get_bb(self):
         return self.component["COLLIDER"].get_bb()
 
-    def processColl(self, _obj)
-        print(type(_obj))
-        if type(_obj) == type(Sword):
-            pass
-        # 몸과 충돌시
-        else :
-            _obj.component["PHYSIC"].addForcee(Vec2(-500,0))
-            if _obj.component["PHYSIC"].getAccel().y < 500 :
-                _obj.component["PHYSIC"].addForce(Vec2(0, 50))
+    def processColl(self, _obj) :
 
+        # 패링 이펙트
+        self.effect["EFFECT_PARRYING"].resetFrame()
+        self.component["EFFECT"] = self.effect["EFFECT_PARRYING"]
+        self.component["EFFECT"].setPos( Vec2(self.pos.x + (_obj.pos.x- self.pos.x)/2,self.pos.y + (_obj.pos.y- self.pos.y)/2)) # 충돌위치의 중간 ㄷ
+
+        # 데미지 입히기
+        if hasattr(_obj,"hp") :  # 몸체끼리
             _obj.hp -= self.damage  # 데미지 입힘
+        else :   # 칼끼리
+            self.owner.parrying()
+            self.is_paryying = True
+
 
     def delEffect(self):
         self.component["EFFECT"] = None

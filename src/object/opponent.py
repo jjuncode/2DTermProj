@@ -39,8 +39,8 @@ class Opponent:
         self.effect = {}
         self.effect["BLOOD"] = Effect(self, self.pos,
                                       Ani(self, self.pos, "effect_blood.png", [4], [128], [171]
-                                          , 0.2, Vec2(1.5, 1.5), True)
-                                      , Vec2(-80, 60))
+                                          , 0.2, Vec2(1.5, 1.5), False)
+                                      , Vec2(80, 60))
         # < StateMachine >
         self.state = StateOpponent(self)
 
@@ -51,12 +51,14 @@ class Opponent:
     def render(self):
         self.state.render()
         for key, value in self.component.items():
-            value.render()
+            if value != None:
+               value.render()
 
     def update(self):
         self.state.update()
         for key, value in self.component.items():
-            value.update()
+            if value != None:
+               value.update()
 
     def getPos(self):
         return Vec2(self.pos.x, self.pos.y)
@@ -70,8 +72,25 @@ class Opponent:
     def processColl(self, _obj):  # 충돌처리
         self.effect["BLOOD"].resetFrame()
         self.component["EFFECT"] = self.effect["BLOOD"]
-        print("현재 체력 : ",self.hp)
-        pass
+
+        self.component["PHYSIC"].addForce(Vec2(500, 0))
+        if self.component["PHYSIC"].getAccel().y < 500:
+            self.component["PHYSIC"].addForce(Vec2(0, 50))
 
     def delEffect(self):
         self.component["EFFECT"] = None
+
+
+
+    def parrying(self):
+        self.pos.x -= self.speed * TimeMgr.GetDt()  # 패링 반작용
+
+        # 충격받음
+        self.component["PHYSIC"].addForce(Vec2(1000, 0))
+        if self.component["PHYSIC"].getAccel().y < 500:
+            self.component["PHYSIC"].addForce(Vec2(0, 250))
+        self.attackRelease()
+
+
+    def attackRelease(self):
+        self.state.attackRelease()

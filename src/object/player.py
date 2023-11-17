@@ -1,11 +1,12 @@
 from pico2d import load_image
 
+from src.mgr.TimeMgr import TimeMgr
 from src.struct.struct import Vec2
 from src.component.ani import Ani
 from src.component.effect import Effect
 
 from src.component.collider import Collider
-from src.component.stateMachine import StatePlayer
+from src.component.stateMachine import StatePlayer,Idle
 from src.component.physic import Physic
 from src.component.ui import UI
 
@@ -71,10 +72,26 @@ class Player:
         return self.component["COLLIDER"].get_bb()
 
     def processColl(self, _obj):  # 충돌처리
+        # 피 흘림
         self.effect["BLOOD"].resetFrame()
         self.component["EFFECT"] = self.effect["BLOOD"]
-        print("현재 체력 : ",self.hp)
-        pass
+
+        # 충격받음
+        self.component["PHYSIC"].addForce(Vec2(-500, 0))
+        if self.component["PHYSIC"].getAccel().y < 500:
+            self.component["PHYSIC"].addForce(Vec2(0, 50))
 
     def delEffect(self):
         self.component["EFFECT"] = None
+
+    def parrying(self):
+        self.pos.x -= self.speed * TimeMgr.GetDt()  # 패링 반작용
+
+        # 충격받음
+        self.component["PHYSIC"].addForce(Vec2(-1000, 0))
+        if self.component["PHYSIC"].getAccel().y < 500:
+            self.component["PHYSIC"].addForce(Vec2(0, 250))
+        self.attackRelease()
+
+    def attackRelease(self):
+        self.state.attackRelease()
