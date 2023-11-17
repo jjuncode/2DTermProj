@@ -2,7 +2,7 @@ from src.component.collider import Collider
 from src.mgr.TimeMgr import TimeMgr
 from src.struct.struct import Vec2
 from src.component.component import Component
-from src.component.stateMachine import Idle, Run, Attack_down, Attack_up, Jump
+from src.component.stateMachine import Idle, Run, Attack_down, Attack_up, Jump, Groggy
 from src.component.ani import Ani
 from src.component.effect import Effect
 from src.struct.struct import OBJ
@@ -68,7 +68,7 @@ class Sword(Component):
             if value != None:
                 value.update()
 
-        if self.owner.getCurState() == Idle or self.owner.getCurState() == Run or self.owner.getCurState()==Jump:
+        if self.owner.getCurState() == Idle or self.owner.getCurState() == Run or self.owner.getCurState()==Jump or self.owner.getCurState() == Groggy:
             self.pos = self.owner.pos
             self.component["COLLIDER"].scale.x = origin_collider_size.x
             self.component["COLLIDER"].scale.y = origin_collider_size.y

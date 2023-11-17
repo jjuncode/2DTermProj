@@ -27,6 +27,41 @@ class Idle:
     def exit(_instance):
         pass
 
+class Groggy:
+    @staticmethod
+    def init(_instance):
+        _instance.ani.cur_ani = 1
+        _instance.ani.ani_reset = True
+        _instance.groggy_time = 0.0
+
+    @staticmethod
+    def update(_instance):
+        _instance.ani.update()
+        _instance.groggy_time += TimeMgr.GetDt()
+        if _instance.groggy_time > 0.5 :
+            _instance.state.change_state("RECOVER")
+            _instance.groggy_time = 0
+        else :
+            # 현재 그로기 상태
+            # 아무 활동도 하지 못한다.
+            SetKeyNone(SDLK_w)
+            SetKeyNone(SDLK_a)
+            SetKeyNone(SDLK_s)
+            SetKeyNone(SDLK_d)
+            SetKeyNone(SDLK_e)
+            SetKeyNone(SDLK_q)
+            SetKeyNone(SDLK_SPACE)
+
+    @staticmethod
+    def render(_instance):
+        _instance.ani.render()
+        pass
+
+    @staticmethod
+    def exit(_instance):
+        pass
+
+
 class Run:
     @staticmethod
     def init(_instance):
@@ -195,9 +230,10 @@ class StatePlayer:
         self.transition = {
             Idle : { SDLK_e :Attack_down, SDLK_q : Attack_up, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run,SDLK_SPACE : Jump},
             Run : {SDLK_e : Attack_down, SDLK_q : Attack_up,"KEY_NONE":Idle,SDLK_SPACE : Jump},
-            Attack_up : { SDLK_e :Attack_down, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run, "KEY_NONE":Idle,SDLK_SPACE : Jump},
-            Attack_down: {SDLK_q: Attack_up, SDLK_w: Run, SDLK_s: Run, SDLK_a: Run, SDLK_d: Run, "KEY_NONE":Idle,SDLK_SPACE : Jump},
-            Jump : {"GROUND" : Idle, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run}
+            Attack_up : { SDLK_e :Attack_down, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run, "KEY_NONE":Idle,SDLK_SPACE : Jump,"GROGGY" : Groggy},
+            Attack_down: {SDLK_q: Attack_up, SDLK_w: Run, SDLK_s: Run, SDLK_a: Run, SDLK_d: Run, "KEY_NONE":Idle,SDLK_SPACE : Jump,"GROGGY" : Groggy},
+            Jump : {"GROUND" : Idle, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run},
+            Groggy : {"RECOVER": Idle}
         }
 
     def update(self):

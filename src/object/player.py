@@ -6,7 +6,7 @@ from src.component.ani import Ani
 from src.component.effect import Effect
 
 from src.component.collider import Collider
-from src.component.stateMachine import StatePlayer,Idle
+from src.component.stateMachine import StatePlayer, Idle, Groggy
 from src.component.physic import Physic
 from src.component.ui import UI
 
@@ -43,6 +43,12 @@ class Player:
                                       Ani(self, self.pos, "effect_blood.png", [4], [128], [171]
                                                          , 0.2, Vec2(1.5, 1.5),True)
                                       , Vec2 (-80,60))
+        self.effect["POINT"] = Effect(self, self.pos,
+                                      Ani(self, self.pos, "effect_point.png", [5], [80], [80]
+                                                         , 0.2, Vec2(1.5, 1.5))
+                                      , Vec2 (0,60))
+
+
         # < StateMachine >
         self.state = StatePlayer(self)
 
@@ -73,8 +79,7 @@ class Player:
 
     def processColl(self, _obj):  # 충돌처리
         # 피 흘림
-        self.effect["BLOOD"].resetFrame()
-        self.component["EFFECT"] = self.effect["BLOOD"]
+        self.changeEffect("BLOOD")
 
         # 충격받음
         self.component["PHYSIC"].addForce(Vec2(-500, 0))
@@ -91,10 +96,18 @@ class Player:
         self.component["PHYSIC"].addForce(Vec2(-1000, 0))
         if self.component["PHYSIC"].getAccel().y < 500:
             self.component["PHYSIC"].addForce(Vec2(0, 250))
+
+        # 상태해제
         self.attackRelease()
+        self.changeEffect("POINT")
+        self.state.change_state("GROGGY")
 
     def attackRelease(self):
         self.state.attackRelease()
 
     def addForce(self,_rhs):
         self.component["PHYSIC"].addForce(_rhs)
+
+    def changeEffect(self,_effect):
+        self.effect[_effect].resetFrame()
+        self.component["EFFECT"] = self.effect[_effect]
