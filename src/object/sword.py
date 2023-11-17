@@ -106,19 +106,30 @@ class Sword(Component):
         return self.component["COLLIDER"].get_bb()
 
     def processColl(self, _obj) :
-
-        # 패링 이펙트
-        self.effect["EFFECT_PARRYING"].resetFrame()
-        self.component["EFFECT"] = self.effect["EFFECT_PARRYING"]
-        self.component["EFFECT"].setPos( Vec2(self.pos.x + (_obj.pos.x- self.pos.x)/2,self.pos.y + (_obj.pos.y- self.pos.y)/2)) # 충돌위치의 중간 ㄷ
-
         # 데미지 입히기
         if hasattr(_obj,"hp") :  # 몸체끼리
             _obj.hp -= self.damage  # 데미지 입힘
         else :   # 칼끼리
-            self.owner.parrying()
-            self.is_paryying = True
+            if self.owner.getCurState() == Attack_up :
+                # 내가 Up 공격일 때
+                # 내가 Up공격일 때 Down 공격을 막는다.
+                # 내가 Up공격일 때 상대가 Up 공격이라면 둘다 그로기, 패링
+                if _obj.owner.getCurState() == Attack_up :
+                    self.owner.setGroggy()
+                    _obj.owner.parrying()
 
+                self.owner.parrying()       # 주인장은 패링
+                _obj.owner.setGroggy()      # 상대방은 그로기
+
+                self.is_paryying = True
+
+                # 패링 이펙트
+                self.effect["EFFECT_PARRYING"].resetFrame()
+                self.component["EFFECT"] = self.effect["EFFECT_PARRYING"]
+                self.component["EFFECT"].setPos(Vec2(self.pos.x + (_obj.pos.x - self.pos.x) / 2,
+                                                     self.pos.y + (_obj.pos.y - self.pos.y) / 2))  # 충돌위치의 중간 ㄷ
+
+        # 내가 Down공격일 때 안막는다.
 
     def delEffect(self):
         self.component["EFFECT"] = None

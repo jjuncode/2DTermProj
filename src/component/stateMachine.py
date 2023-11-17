@@ -271,8 +271,9 @@ class StateOpponent:
         self.transition = {
             Idle : { SDLK_e :Attack_down, SDLK_q : Attack_up, SDLK_UP : Run,SDLK_DOWN:Run, SDLK_LEFT : Run, SDLK_RIGHT : Run},
             Run : {SDLK_e : Attack_down, SDLK_q : Attack_up,"KEY_NONE":Idle },
-            Attack_up : { SDLK_e :Attack_down, SDLK_UP : Run,SDLK_DOWN:Run, SDLK_LEFT : Run, SDLK_RIGHT : Run, "KEY_NONE":Idle},
-            Attack_down: {SDLK_q: Attack_up, SDLK_UP: Run, SDLK_DOWN: Run, SDLK_LEFT: Run, SDLK_RIGHT: Run, "KEY_NONE":Idle},
+            Attack_up : { SDLK_e :Attack_down, SDLK_UP : Run,SDLK_DOWN:Run, SDLK_LEFT : Run, SDLK_RIGHT : Run, "KEY_NONE":Idle,"GROGGY" : Groggy},
+            Attack_down: {SDLK_q: Attack_up, SDLK_UP: Run, SDLK_DOWN: Run, SDLK_LEFT: Run, SDLK_RIGHT: Run, "KEY_NONE":Idle,"GROGGY" : Groggy},
+            Groggy: {"RECOVER": Idle}
         }
 
     def update(self):

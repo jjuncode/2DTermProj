@@ -99,11 +99,8 @@ class Player:
         self.component["PHYSIC"].addForce(Vec2(-1000, 0))
         if self.component["PHYSIC"].getAccel().y < 500:
             self.component["PHYSIC"].addForce(Vec2(0, 250))
-
         # 상태해제
         self.attackRelease()
-        self.changeEffect("POINT")
-        self.state.change_state("GROGGY")
 
     def attackRelease(self):
         self.state.attackRelease()
@@ -118,3 +115,7 @@ class Player:
     def defeat(self):
         from src.mgr.SceneMgr import SceneMgr
         SceneMgr.getCurScene().sceneChange(scene_result)
+
+    def setGroggy(self):
+        self.changeEffect("POINT")
+        self.state.change_state("GROGGY")

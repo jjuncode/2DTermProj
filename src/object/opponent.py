@@ -41,6 +41,11 @@ class Opponent:
                                       Ani(self, self.pos, "effect_blood.png", [4], [128], [171]
                                           , 0.2, Vec2(1.5, 1.5), False)
                                       , Vec2(80, 60))
+        self.effect["POINT"] = Effect(self, self.pos,
+                                      Ani(self, self.pos, "effect_point.png", [5], [80], [80]
+                                                         , 0.2, Vec2(3, 3))
+                                      , Vec2 (0,60))
+
         # < StateMachine >
         self.state = StateOpponent(self)
 
@@ -94,3 +99,12 @@ class Opponent:
 
     def attackRelease(self):
         self.state.attackRelease()
+
+
+    def setGroggy(self):
+        self.changeEffect("POINT")
+        self.state.change_state("GROGGY")
+
+    def changeEffect(self,_effect):
+        self.effect[_effect].resetFrame()
+        self.component["EFFECT"] = self.effect[_effect]
