@@ -95,3 +95,6 @@ class Player:
 
     def attackRelease(self):
         self.state.attackRelease()
+
+    def addForce(self,_rhs):
+        self.component["PHYSIC"].addForce(_rhs)

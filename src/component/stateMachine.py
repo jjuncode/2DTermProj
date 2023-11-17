@@ -3,6 +3,8 @@ from src.mgr.TimeMgr import TimeMgr
 from pico2d import SDLK_a, SDLK_d, SDLK_w, SDLK_s, SDLK_q, SDLK_e, SDLK_SPACE, SDLK_LEFT, SDLK_RIGHT, SDLK_UP, \
     SDLK_DOWN
 
+from src.struct.struct import Vec2
+
 
 class Idle:
 
@@ -48,9 +50,12 @@ class Run:
     @staticmethod
     def update_key(_instance):
         if IsKey(SDLK_d): _instance.pos.x += +_instance.speed * TimeMgr.GetDt()
-        if IsKey(SDLK_a): _instance.pos.x -= +_instance.speed * TimeMgr.GetDt()
         if IsKey(SDLK_w): _instance.pos.x += +_instance.speed * TimeMgr.GetDt()
-        if IsKey(SDLK_s): _instance.pos.x -= +_instance.speed * TimeMgr.GetDt()
+        if IsKey(SDLK_a):
+            _instance.pos.x -= +_instance.speed * TimeMgr.GetDt()
+            if IsKey(SDLK_s):
+                _instance.pos.x -= +_instance.speed * 1.5 * TimeMgr.GetDt()
+                _instance.addForce(Vec2(-10,3))
 
         if isNoneKey((SDLK_a,SDLK_d,SDLK_w,SDLK_s)):
             _instance.state.change_state("KEY_NONE")

@@ -57,6 +57,10 @@ class Sword(Component):
             self.effect["EFFECT_ATTACK_DOWN"] = Effect(self, self.pos,
                                                        Ani(self, self.pos, "spr_dragon_slash.png", [5], [94], [38], 0.15, Vec2(2, 5),True)
                                                        , Vec2 (0,30))
+
+        # 기본 이펙트는 공통분모인 패링 이펙트
+        self.component["EFFECT"] = self.effect["EFFECT_PARRYING"]
+
     def update(self):
         self.is_paryying = False    # 패링 해제
 
