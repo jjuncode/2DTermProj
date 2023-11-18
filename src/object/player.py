@@ -99,6 +99,7 @@ class Player:
         self.component["PHYSIC"].addForce(Vec2(-1000, 0))
         if self.component["PHYSIC"].getAccel().y < 500:
             self.component["PHYSIC"].addForce(Vec2(0, 250))
+
         # 상태해제
         self.attackRelease()
 
@@ -117,5 +118,10 @@ class Player:
         SceneMgr.getCurScene().sceneChange(scene_result)
 
     def setGroggy(self):
+        # 충격받음
+        self.component["PHYSIC"].addForce(Vec2(-1000, 0))
+        if self.component["PHYSIC"].getAccel().y < 500:
+            self.component["PHYSIC"].addForce(Vec2(0, 250))
+
         self.changeEffect("POINT")
         self.state.change_state("GROGGY")

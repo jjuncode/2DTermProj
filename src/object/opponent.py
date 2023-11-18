@@ -106,6 +106,11 @@ class Opponent:
 
 
     def setGroggy(self):
+        # 충격받음
+        self.component["PHYSIC"].addForce(Vec2(1000, 0))
+        if self.component["PHYSIC"].getAccel().y < 500:
+            self.component["PHYSIC"].addForce(Vec2(0, 250))
+
         self.changeEffect("POINT")
         self.state.change_state("GROGGY")
 
@@ -114,16 +119,21 @@ class Opponent:
         self.component["EFFECT"] = self.effect[_effect]
 
     def build_behavior_tree(self):
-        c1 = Condition("플레이어보다 체력이 많거나 같은가", self.is_more_hp)
-        c2 = Condition("플레이어보다 체력이 적은가", self.is_less_hp)
+        c_hp_more = Condition("플레이어보다 체력이 많거나 같은가", self.is_more_hp)
+        c_hp_less = Condition("플레이어보다 체력이 적은가", self.is_less_hp)
 
-        move_forward = Action('전진', self.move_forward)  # action node 생성
-        move_back = Action("후진", self.move_back)
+        c_distn = Condition("일정거리 이내", self.is_near_player,300)
 
-        SEQ_move_froward = Sequence("앞으로 이동",c1,move_forward)
-        SEQ_move_back = Sequence("뒤로 이동",c2,move_back)
+        a_move_forward = Action('전진', self.move_forward)  # action node 생성
+        a_move_back = Action("후진", self.move_back)
+        a_attakc_down = Action("공격",self.attack_down)
 
-        root = Selector("이동/후퇴", SEQ_move_froward,SEQ_move_back)
+        SEQ_move_froward = Sequence("앞으로 이동",c_hp_more,a_move_forward)
+        SEQ_move_back = Sequence("뒤로 이동",c_hp_less,a_move_back)
+
+        SEQ_attack = Sequence("공격", c_distn,a_attakc_down)
+
+        root = Selector("이동/후퇴", SEQ_attack,SEQ_move_froward,SEQ_move_back)
 
         self.bt = BehaviorTree(root)
         self.component["BT"] = self.bt
@@ -146,9 +156,19 @@ class Opponent:
         else:
             return BehaviorTree.FAIL
 
+    def is_near_player(self,_distn):
+        from src.mgr.SceneMgr import SceneMgr
+        player = SceneMgr.getCurScene().getObj(OBJ.kPlayer)
+        if self.pos.x - player[0].getPos().x < _distn : return BehaviorTree.SUCCESS
+        else : return BehaviorTree.FAIL
+
     def move_forward(self):
         if self.getCurState() != Front:
             self.state.change_state("FRONT")
     def move_back(self):
         if self.getCurState() != Back:
             self.state.change_state("BACK")
+
+    def attack_down(self):
+        if self.getCurState() != Attack_up_Opp:
+            self.state.change_state("PARRYING")

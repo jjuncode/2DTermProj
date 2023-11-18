@@ -265,8 +265,8 @@ class StatePlayer:
         pass
 
     def attackRelease(self):
-        SetKeyNone(SDLK_e)
-        SetKeyNone(SDLK_q)
+        SetKeyExcept(SDLK_e)
+        SetKeyExcept(SDLK_q)
 
 class StateOpponent:
     def __init__(self,_instance):
@@ -274,11 +274,11 @@ class StateOpponent:
         self.cur_state = Idle
         self.cur_state.init(self.instance)
         self.transition = {
-            Idle : { "ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back},
-            Front : {"ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back},
-            Back : {"ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back},
-            Attack_up : {"ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back, "GROGGY" : Groggy},
-            Attack_down: {"ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back,"GROGGY" : Groggy},
+            Idle : { "ATTACK_DOWN" :Attack_down_Opp, "PARRYING" : Attack_up_Opp, "FRONT" : Front, "BACK": Back, "GROGGY" : Groggy},
+            Front : {"ATTACK_DOWN" :Attack_down_Opp, "PARRYING" : Attack_up_Opp, "FRONT" : Front, "BACK": Back, "GROGGY" : Groggy},
+            Back : {"ATTACK_DOWN" :Attack_down_Opp, "PARRYING" : Attack_up_Opp, "FRONT" : Front, "BACK": Back, "GROGGY" : Groggy},
+            Attack_up_Opp : {"ATTACK_DOWN" :Attack_down_Opp, "PARRYING" : Attack_up_Opp, "FRONT" : Front, "BACK": Back, "GROGGY" : Groggy},
+            Attack_down_Opp: {"ATTACK_DOWN" :Attack_down_Opp, "PARRYING" : Attack_up_Opp, "FRONT" : Front, "BACK": Back,"GROGGY" : Groggy},
             Groggy: {"RECOVER": Idle}
         }
 
@@ -342,6 +342,45 @@ class Back:
     @staticmethod
     def render(_instance):
         _instance.ani.render()
+
+    @staticmethod
+    def exit(_instance):
+        pass
+
+class Attack_down_Opp:
+    @staticmethod
+    def init(_instance):
+        _instance.ani.setAni(ANI_ATTACK_DOWN)
+        _instance.ani.resetAni()
+
+    @staticmethod
+    def update(_instance):
+        _instance.ani.update()
+
+    @staticmethod
+    def render(_instance):
+        _instance.ani.render()
+        pass
+
+    @staticmethod
+    def exit(_instance):
+        pass
+
+
+class Attack_up_Opp:
+    @staticmethod
+    def init(_instance):
+        _instance.ani.setAni(ANI_ATTACK_UP)
+        _instance.ani.resetAni()
+
+    @staticmethod
+    def update(_instance):
+        _instance.ani.update()
+
+    @staticmethod
+    def render(_instance):
+        _instance.ani.render()
+        pass
 
     @staticmethod
     def exit(_instance):

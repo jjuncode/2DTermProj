@@ -23,10 +23,10 @@ class Vec2:
 
 class OBJ(Enum):
     kBackground = 0
-    kPlayer = 1
-    kPlayer_sword = 2
-    kOpponent = 3
-    kOpponent_sword = 4
+    kOpponent = 1
+    kOpponent_sword = 2
+    kPlayer = 3
+    kPlayer_sword = 4
 
     kTitle_background = 5
     kTitle_fence = 6
