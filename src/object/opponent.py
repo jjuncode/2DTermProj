@@ -147,7 +147,8 @@ class Opponent:
             return BehaviorTree.FAIL
 
     def move_forward(self):
-        self.state.change_state(Front)
-
+        if self.getCurState() != Front:
+            self.state.change_state("FRONT")
     def move_back(self):
-        self.state.change_state(Back)
+        if self.getCurState() != Back:
+            self.state.change_state("BACK")

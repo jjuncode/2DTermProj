@@ -275,7 +275,8 @@ class StateOpponent:
         self.cur_state.init(self.instance)
         self.transition = {
             Idle : { "ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back},
-            Run : {"ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back},
+            Front : {"ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back},
+            Back : {"ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back},
             Attack_up : {"ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back, "GROGGY" : Groggy},
             Attack_down: {"ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back,"GROGGY" : Groggy},
             Groggy: {"RECOVER": Idle}
@@ -310,13 +311,13 @@ class StateOpponent:
 class Front :
     @staticmethod
     def init(_instance):
-        _instance.ani.setAni(ANI_IDLE)
+        _instance.ani.setAni(ANI_RUN)
         _instance.ani.resetAni()
 
     @staticmethod
     def update(_instance):
         _instance.ani.update()
-        _instance.pos.x += _instance.speed * TimeMgr.GetDt()
+        _instance.pos.x -= _instance.speed * TimeMgr.GetDt()
 
     @staticmethod
     def render(_instance):
@@ -330,7 +331,7 @@ class Front :
 class Back:
     @staticmethod
     def init(_instance):
-        _instance.ani.setAni(ANI_IDLE)
+        _instance.ani.setAni(ANI_RUN)
         _instance.ani.resetAni()
 
     @staticmethod
