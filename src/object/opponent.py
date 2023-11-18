@@ -1,9 +1,11 @@
 from src.mgr.TimeMgr import TimeMgr
-from src.struct.struct import Vec2
+from src.struct.struct import Vec2, OBJ
 from src.component.ani import Ani
 
 from src.component.collider import Collider
-from src.component.stateMachine import StateOpponent
+from src.component.stateMachine import *
+from src.component.behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
+
 from src.component.physic import Physic
 from src.component.ui import UI
 from src.component.effect import Effect
@@ -46,8 +48,11 @@ class Opponent:
                                                          , 0.2, Vec2(3, 3))
                                       , Vec2 (0,60))
 
-        # < StateMachine >
+        # < State >
         self.state = StateOpponent(self)
+
+        # < Behavior Tree >
+        self.build_behavior_tree()
 
         # UI
         self.ui = UI(self, self.pos)
@@ -96,7 +101,6 @@ class Opponent:
             self.component["PHYSIC"].addForce(Vec2(0, 250))
         self.attackRelease()
 
-
     def attackRelease(self):
         self.state.attackRelease()
 
@@ -108,3 +112,42 @@ class Opponent:
     def changeEffect(self,_effect):
         self.effect[_effect].resetFrame()
         self.component["EFFECT"] = self.effect[_effect]
+
+    def build_behavior_tree(self):
+        c1 = Condition("플레이어보다 체력이 많거나 같은가", self.is_more_hp)
+        c2 = Condition("플레이어보다 체력이 적은가", self.is_less_hp)
+
+        move_forward = Action('전진', self.move_forward)  # action node 생성
+        move_back = Action("후진", self.move_back)
+
+        SEQ_move_froward = Sequence("앞으로 이동",c1,move_forward)
+        SEQ_move_back = Sequence("뒤로 이동",c2,move_back)
+
+        root = Selector("이동/후퇴", SEQ_move_froward,SEQ_move_back)
+
+        self.bt = BehaviorTree(root)
+        self.component["BT"] = self.bt
+
+
+    # 플레이어보다 HP 많거나 같은지
+    def is_more_hp(self):
+        from src.mgr.SceneMgr import SceneMgr
+        player = SceneMgr.getCurScene().getObj(OBJ.kPlayer)
+        if self.hp >= player[0].hp :
+            return BehaviorTree.SUCCESS
+        else :
+            return BehaviorTree.FAIL
+
+    def is_less_hp(self):
+        from src.mgr.SceneMgr import SceneMgr
+        player = SceneMgr.getCurScene().getObj(OBJ.kPlayer)
+        if self.hp < player[0].hp:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+
+    def move_forward(self):
+        self.state.change_state(Front)
+
+    def move_back(self):
+        self.state.change_state(Back)

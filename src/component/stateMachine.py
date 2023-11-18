@@ -5,13 +5,18 @@ from pico2d import SDLK_a, SDLK_d, SDLK_w, SDLK_s, SDLK_q, SDLK_e, SDLK_SPACE, S
 
 from src.struct.struct import Vec2
 
+ANI_RUN = 0
+ANI_IDLE = 1
+ANI_ATTACK_DOWN = 2
+ANI_ATTACK_UP = 3
 
 class Idle:
 
     @staticmethod
     def init(_instance):
-        _instance.ani.cur_ani = 1
-        _instance.ani.ani_reset = True
+        _instance.ani.setAni(ANI_IDLE)
+        _instance.ani.resetAni()
+
 
     @staticmethod
     def update(_instance):
@@ -30,8 +35,8 @@ class Idle:
 class Groggy:
     @staticmethod
     def init(_instance):
-        _instance.ani.cur_ani = 1
-        _instance.ani.ani_reset = True
+        _instance.ani.setAni(ANI_IDLE)
+        _instance.ani.resetAni()
         _instance.groggy_time = 0.0
 
     @staticmethod
@@ -65,8 +70,8 @@ class Groggy:
 class Run:
     @staticmethod
     def init(_instance):
-        _instance.ani.cur_ani = 0
-        _instance.ani.ani_reset = True
+        _instance.ani.setAni(ANI_RUN)
+        _instance.ani.resetAni()
 
     @staticmethod
     def update(_instance):
@@ -98,8 +103,8 @@ class Run:
 class Jump:
     @staticmethod
     def init(_instance):
-        _instance.ani.cur_ani = 0
-        _instance.ani.ani_reset = True
+        _instance.ani.setAni(ANI_RUN)
+        _instance.ani.resetAni()
 
     @staticmethod
     def update(_instance):
@@ -128,8 +133,8 @@ class Jump:
 class Attack_up:
     @staticmethod
     def init(_instance):
-        _instance.ani.cur_ani = 3
-        _instance.ani.ani_reset = True
+        _instance.ani.setAni(ANI_ATTACK_UP)
+        _instance.ani.resetAni()
 
     @staticmethod
     def update(_instance):
@@ -179,8 +184,8 @@ class Attack_up:
 class Attack_down:
     @staticmethod
     def init(_instance):
-        _instance.ani.cur_ani = 2
-        _instance.ani.ani_reset = True
+        _instance.ani.setAni(ANI_ATTACK_DOWN)
+        _instance.ani.resetAni()
 
     @staticmethod
     def update(_instance):
@@ -269,10 +274,10 @@ class StateOpponent:
         self.cur_state = Idle
         self.cur_state.init(self.instance)
         self.transition = {
-            Idle : { SDLK_e :Attack_down, SDLK_q : Attack_up, SDLK_UP : Run,SDLK_DOWN:Run, SDLK_LEFT : Run, SDLK_RIGHT : Run},
-            Run : {SDLK_e : Attack_down, SDLK_q : Attack_up,"KEY_NONE":Idle },
-            Attack_up : { SDLK_e :Attack_down, SDLK_UP : Run,SDLK_DOWN:Run, SDLK_LEFT : Run, SDLK_RIGHT : Run, "KEY_NONE":Idle,"GROGGY" : Groggy},
-            Attack_down: {SDLK_q: Attack_up, SDLK_UP: Run, SDLK_DOWN: Run, SDLK_LEFT: Run, SDLK_RIGHT: Run, "KEY_NONE":Idle,"GROGGY" : Groggy},
+            Idle : { "ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back},
+            Run : {"ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back},
+            Attack_up : {"ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back, "GROGGY" : Groggy},
+            Attack_down: {"ATTACK" :Attack_down, "PARRYING" : Attack_up, "FRONT" : Front, "BACK": Back,"GROGGY" : Groggy},
             Groggy: {"RECOVER": Idle}
         }
 
@@ -301,3 +306,42 @@ class StateOpponent:
     def attackRelease(self):
         SetKeyNone(SDLK_e)
         SetKeyNone(SDLK_q)
+
+class Front :
+    @staticmethod
+    def init(_instance):
+        _instance.ani.setAni(ANI_IDLE)
+        _instance.ani.resetAni()
+
+    @staticmethod
+    def update(_instance):
+        _instance.ani.update()
+        _instance.pos.x += _instance.speed * TimeMgr.GetDt()
+
+    @staticmethod
+    def render(_instance):
+        _instance.ani.render()
+
+    @staticmethod
+    def exit(_instance):
+        pass
+
+
+class Back:
+    @staticmethod
+    def init(_instance):
+        _instance.ani.setAni(ANI_IDLE)
+        _instance.ani.resetAni()
+
+    @staticmethod
+    def update(_instance):
+        _instance.ani.update()
+        _instance.pos.x += _instance.speed * TimeMgr.GetDt()
+
+    @staticmethod
+    def render(_instance):
+        _instance.ani.render()
+
+    @staticmethod
+    def exit(_instance):
+        pass

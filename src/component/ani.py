@@ -50,3 +50,9 @@ class Ani(Component):
         if (self.acc_time > self.act_time ):
             self.acc_time = 0
             self.cur_frame = ( self.cur_frame +1 ) % self.max_frame[self.cur_ani]
+
+    def setAni(self,_rhs):
+        self.cur_ani= _rhs
+
+    def resetAni(self):
+        self.ani_reset = True
