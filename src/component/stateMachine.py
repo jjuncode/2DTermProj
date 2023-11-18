@@ -287,6 +287,10 @@ class StateOpponent:
         self.update_key()
         self.change_state(None)
 
+        self.instance.acc_parry += TimeMgr.GetDt()
+        if self.instance.acc_parry > 1.0 :
+            self.instance.can_parry = True
+
     def render(self):
         self.cur_state.render(self.instance)
 
@@ -384,4 +388,5 @@ class Attack_up_Opp:
 
     @staticmethod
     def exit(_instance):
-        pass
+        _instance.can_parry = False
+        _instance.acc_parry = 0.0
