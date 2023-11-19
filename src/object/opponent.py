@@ -29,7 +29,7 @@ class Opponent:
         # animation
         self.cur_ani = 0
         self.ani_reset = False
-        self.ani = Ani(self, self.pos, "Character.png", [8, 12, 7, 7], [128, 128, 200, 200], [130, 120, 203, 203]
+        self.ani = Ani(self, self.pos, "Opp.png", [8, 12, 7, 7], [128, 128, 200, 200], [130, 120, 203, 203]
                        , 0.15, Vec2(3, 3), True)
         self.component["ANI"] = self.ani
 
