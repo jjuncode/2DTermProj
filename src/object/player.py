@@ -132,3 +132,6 @@ class Player:
 
         self.changeEffect("POINT")
         self.state.change_state("GROGGY")
+
+    def getAccel(self):
+        return self.component["PHYSIC"].accel

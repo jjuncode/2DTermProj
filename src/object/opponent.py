@@ -116,6 +116,7 @@ class Opponent:
 
     def setGroggy(self):
         # 충격받음
+        self.combo = False
         self.component["PHYSIC"].addForce(Vec2(1000, 0))
         if self.component["PHYSIC"].getAccel().y < 500:
             self.component["PHYSIC"].addForce(Vec2(0, 250))
@@ -138,6 +139,7 @@ class Opponent:
         c_can_parry = Condition("패링가능", self.is_can_parry)
         c_cur_parry = Condition("현재 자신이 패링중이 아닌가", self.is_not_parrying)
         c_combo= Condition("콤보가능한가", self.is_combo)
+        c_player_combo = Condition("플레이어가 콤보상태인가?", self.is_player_combo)
 
         a_combo = Action("콤보 전진",self.move_combo)
         a_move_forward = Action('전진', self.move_forward)  # action node 생성
@@ -153,8 +155,8 @@ class Opponent:
 
         SEQ_move_back = Sequence("뒤로 이동", c_cur_parry, c_hp_less, a_move_back)
 
-        SEQ_attack = Sequence("공격", c_cur_parry, c_distn, a_attack_down)
-        SEQ_parrying = Sequence("패링", c_distn_parry, c_is_attack, c_can_parry, a_attack_parrying)
+        SEQ_attack = Sequence("공격", c_player_combo,c_cur_parry, c_distn, a_attack_down)
+        SEQ_parrying = Sequence("패링", c_player_combo,c_distn_parry, c_is_attack, c_can_parry, a_attack_parrying)
 
         root = Selector("콤보/패링/공격/이동/후퇴", SEQ_move_by_combo,SEQ_parrying, SEQ_attack, SEQ_move_froward, SEQ_move_back)
 
@@ -218,6 +220,12 @@ class Opponent:
     def is_combo(self):
         if self.combo : return BehaviorTree.SUCCESS
         return BehaviorTree.FAIL
+
+    def is_player_combo(self): # 플레이어가 콤보 상태가 아닌가?
+        from src.mgr.SceneMgr import SceneMgr
+        player = SceneMgr.getCurScene().getObj(OBJ.kPlayer)
+        if player[0].getAccel().x > 0 : return BehaviorTree.FAIL
+        return BehaviorTree.SUCCESS
 
     def move_combo(self):
         self.addForce(Vec2(-3000,0))
