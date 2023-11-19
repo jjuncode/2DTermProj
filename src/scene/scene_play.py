@@ -16,12 +16,12 @@ class scene_play(scene):
         # Player
         player = Player()
         sword_player = Sword(player, Vec2(player.pos.x, player.pos.y))
-        sword_player.setDamage(1)
+        sword_player.setDamage(0.5)
 
         # Opponent
         opponent = Opponent()
         sword_opponent = Sword(opponent, Vec2(opponent.pos.x, opponent.pos.y))
-        sword_opponent.setDamage(1.5)
+        sword_opponent.setDamage(1)
 
         self.obj[OBJ.kPlayer.value].append(player)
         self.obj[OBJ.kPlayer_sword.value].append(sword_player)

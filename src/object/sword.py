@@ -52,7 +52,7 @@ class Sword(Component):
         # player effect
         if type(_owner) == Player:
             self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos
-                                                     , Ani(self, self.pos, "parring_purple.png", [5], [123], [30], 0.15,
+                                                     , Ani(self, self.pos, "parring_red.png", [5], [123], [30], 0.15,
                                                            Vec2(2, 5))
                                                      , Vec2(0, 30))
 
