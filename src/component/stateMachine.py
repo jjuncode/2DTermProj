@@ -192,6 +192,10 @@ class Attack_down:
         _instance.ani.update()
         Attack_down.update_key(_instance)
 
+        if _instance.combo :
+            _instance.addForce(Vec2(3000,0))
+            _instance.combo = False
+
     @staticmethod
     def render(_instance):
         _instance.ani.render()
@@ -213,7 +217,6 @@ class Attack_down:
             SetKeyExcept(SDLK_w)
         if IsKey(SDLK_s):
             SetKeyExcept(SDLK_s)
-
 
         # 공격상태에서 반대편 공격이 동시에 눌릴경우
         if IsKey(SDLK_q):
@@ -265,7 +268,6 @@ class StatePlayer:
         pass
 
     def attackRelease(self):
-        SetKeyExcept(SDLK_e)
         SetKeyExcept(SDLK_q)
 
 class StateOpponent:
@@ -288,7 +290,7 @@ class StateOpponent:
         self.change_state(None)
 
         self.instance.acc_parry += TimeMgr.GetDt()
-        if self.instance.acc_parry > 1.0 :
+        if self.instance.acc_parry > self.instance.cooltime_parry :
             self.instance.can_parry = True
 
     def render(self):

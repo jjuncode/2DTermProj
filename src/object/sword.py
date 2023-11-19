@@ -1,10 +1,12 @@
+import pico2d
+
 from src.component.collider import Collider
 from src.mgr.TimeMgr import TimeMgr
 from src.struct.struct import Vec2
 from src.component.component import Component
 from src.component.stateMachine import Idle, Run, Attack_down, Attack_up, Jump, Groggy, Attack_up_Opp, Attack_down_Opp, \
     Front, Back
-from src.component.ani import Ani
+from src.component.ani import Ani, CreatePath
 from src.component.effect import Effect
 from src.struct.struct import OBJ
 
@@ -12,8 +14,15 @@ origin_collider_size = Vec2(0, 0)
 
 
 class Sword(Component):
+    sound_parry = None
+    sound_hit = None
     def __init__(self, _owner, _pos):
         super().__init__(_owner, _pos)
+
+        if Sword.sound_parry == None:
+            Sword.sound_parry = pico2d.load_music(CreatePath("parrying_sound.mp3"))
+        if Sword.sound_hit == None:
+            Sword.sound_hit = pico2d.load_music(CreatePath("hit_sound.mp3"))
 
         self.damage = 2
         self.is_paryying = False
@@ -115,7 +124,9 @@ class Sword(Component):
         # 데미지 입히기
         if hasattr(_obj, "hp"):  # 몸체끼리
             _obj.hp -= self.damage  # 데미지 입힘
+            Sword.sound_hit.play()
         else:  # 칼끼리
+            Sword.sound_parry.play()
             if self.owner.getCurState() == Attack_up or self.owner.getCurState() == Attack_up_Opp:
                 # 내가 Up 공격일 때
                 # 내가 Up공격일 때 Down 공격을 막는다.

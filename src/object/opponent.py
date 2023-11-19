@@ -20,6 +20,8 @@ class Opponent:
         self.hp = 100
         self.acc_parry = 0.0
         self.can_parry = True
+        self.cooltime_parry = 2.0
+        self.combo = False
 
         # < Component >
         self.component = {}
@@ -94,6 +96,9 @@ class Opponent:
     def delEffect(self):
         self.component["EFFECT"] = None
 
+    def addForce(self,_rhs):
+        self.component["PHYSIC"].addForce(_rhs)
+
     def parrying(self):
         self.pos.x -= self.speed * TimeMgr.GetDt()  # 패링 반작용
 
@@ -102,6 +107,9 @@ class Opponent:
         if self.component["PHYSIC"].getAccel().y < 500:
             self.component["PHYSIC"].addForce(Vec2(0, 250))
         self.attackRelease()
+
+        # 패링했는데 공격하면 콤보
+        self.combo = True
 
     def attackRelease(self):
         self.state.attackRelease()
@@ -123,19 +131,22 @@ class Opponent:
         c_hp_more = Condition("플레이어보다 체력이 많거나 같은가", self.is_more_hp)
         c_hp_less = Condition("플레이어보다 체력이 적은가", self.is_less_hp)
 
-        c_distn = Condition("일정거리 이내", self.is_near_player, 250)
+        c_distn = Condition("일정거리 이내", self.is_near_player, 150)
         c_distn_parry = Condition ( "패링거리 이내 ", self.is_near_player, 400)
         c_is_attack = Condition("상대가 공격함", self.is_player_attack)
         c_is_idle = Condition("상대가 Idle", self.is_player_idle)
         c_can_parry = Condition("패링가능", self.is_can_parry)
         c_cur_parry = Condition("현재 자신이 패링중이 아닌가", self.is_not_parrying)
+        c_combo= Condition("콤보가능한가", self.is_combo)
 
+        a_combo = Action("콤보 전진",self.move_combo)
         a_move_forward = Action('전진', self.move_forward)  # action node 생성
         a_move_back = Action("후진", self.move_back)
 
         a_attack_down = Action("공격", self.attack_down)
         a_attack_parrying = Action("패링", self.attack_parrying)
 
+        SEQ_move_by_combo = Sequence("앞으로 이동_by Combo",c_combo,a_combo)
         SEQ_move_by_idle = Sequence("앞으로 이동_by HP", c_cur_parry, c_hp_more, a_move_forward)
         SEQ_move_by_hp = Sequence("앞으로 이동_by IDLE", c_cur_parry, c_is_idle, a_move_forward)
         SEQ_move_froward = Selector("앞으로 이동", SEQ_move_by_hp, SEQ_move_by_idle)
@@ -145,7 +156,7 @@ class Opponent:
         SEQ_attack = Sequence("공격", c_cur_parry, c_distn, a_attack_down)
         SEQ_parrying = Sequence("패링", c_distn_parry, c_is_attack, c_can_parry, a_attack_parrying)
 
-        root = Selector("패링/공격/이동/후퇴", SEQ_parrying, SEQ_attack, SEQ_move_froward, SEQ_move_back)
+        root = Selector("콤보/패링/공격/이동/후퇴", SEQ_move_by_combo,SEQ_parrying, SEQ_attack, SEQ_move_froward, SEQ_move_back)
 
         self.bt = BehaviorTree(root)
         self.component["BT"] = self.bt
@@ -202,6 +213,15 @@ class Opponent:
         if self.getCurState() == Attack_up_Opp:
             return False
         return True
+
+
+    def is_combo(self):
+        if self.combo : return BehaviorTree.SUCCESS
+        return BehaviorTree.FAIL
+
+    def move_combo(self):
+        self.addForce(Vec2(-3000,0))
+        self.combo= False
 
     def move_forward(self):
         if self.getCurState() != Front:

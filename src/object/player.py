@@ -1,5 +1,7 @@
 from pico2d import load_image
+from sdl2 import SDLK_e
 
+from src.mgr.KeyMgr import IsTapKey
 from src.mgr.TimeMgr import TimeMgr
 from src.scene.scene_result import scene_result
 from src.struct.struct import Vec2
@@ -17,6 +19,7 @@ class Player:
         self.speed = 200
         self.dir = 1 # 양의 x축방향이 정면
         self.hp = 100
+        self.combo = False
 
         # < Component >
         self.component = {}
@@ -103,6 +106,9 @@ class Player:
         # 상태해제
         self.attackRelease()
 
+        # 패링했는데 공격하면 콤보
+        self.combo = True
+
     def attackRelease(self):
         self.state.attackRelease()
 
@@ -119,6 +125,7 @@ class Player:
 
     def setGroggy(self):
         # 충격받음
+        self.combo = False
         self.component["PHYSIC"].addForce(Vec2(-1000, 0))
         if self.component["PHYSIC"].getAccel().y < 500:
             self.component["PHYSIC"].addForce(Vec2(0, 250))
