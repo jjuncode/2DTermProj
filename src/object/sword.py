@@ -63,7 +63,7 @@ class Sword(Component):
         # opponent effect
         elif type(_owner) == Opponent:
             self.effect["EFFECT_ATTACK_UP"] = Effect(self, self.pos,
-                                                     Ani(self, self.pos, "spr_master_slash.png", [5], [123], [30], 0.15,
+                                                     Ani(self, self.pos, "parring_red.png", [5], [123], [30], 0.15,
                                                          Vec2(2, 5), True)
                                                      , Vec2(0, 30))
 

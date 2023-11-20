@@ -121,7 +121,7 @@ class Player:
 
     def defeat(self):
         from src.mgr.SceneMgr import SceneMgr
-        SceneMgr.getCurScene().sceneChange(scene_result)
+        SceneMgr.getCurScene().sceneChange(scene_result("DEFEAT"))
 
     def setGroggy(self):
         # 충격받음

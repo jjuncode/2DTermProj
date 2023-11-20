@@ -19,4 +19,4 @@ class scene_title(scene):
 
     def updateKey(self):
         if IsTapKey(SDLK_SPACE) :
-            self.sceneChange(scene_play)
+            self.sceneChange(scene_play())

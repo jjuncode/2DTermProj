@@ -31,7 +31,7 @@ class SceneMgr:
     @staticmethod
     def sceneChange(_scene):
         del SceneMgr.mgr.cur_scene
-        SceneMgr.mgr.cur_scene = _scene()
+        SceneMgr.mgr.cur_scene = _scene
 
     @staticmethod
     def getCurScene():

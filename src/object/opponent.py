@@ -1,4 +1,5 @@
 from src.mgr.TimeMgr import TimeMgr
+from src.scene.scene_result import scene_result
 from src.struct.struct import Vec2, OBJ
 from src.component.ani import Ani
 
@@ -75,6 +76,8 @@ class Opponent:
         for key, value in self.component.items():
             if value != None:
                 value.update()
+
+        if self.hp <0 : self.defeat()
 
     def getPos(self):
         return Vec2(self.pos.x, self.pos.y)
@@ -240,6 +243,7 @@ class Opponent:
         if self.getCurState() != Front:
             self.state.change_state("FRONT")
 
+
     def move_back(self):
         if self.getCurState() != Back:
             self.state.change_state("BACK")
@@ -252,3 +256,6 @@ class Opponent:
         if self.getCurState() != Attack_up_Opp:
             self.state.change_state("PARRYING")
 
+    def defeat(self):
+        from src.mgr.SceneMgr import SceneMgr
+        SceneMgr.getCurScene().sceneChange(scene_result("WIN"))
