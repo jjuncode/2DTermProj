@@ -93,7 +93,7 @@ class Opponent:
         self.component["EFFECT"] = self.effect["BLOOD"]
 
         self.component["PHYSIC"].addForce(Vec2(500, 0))
-        if self.component["PHYSIC"].getAccel().y < 500:
+        if self.component["PHYSIC"].getAccel().y < 500 and self.pos.y<250 : # 무콤방지
             self.component["PHYSIC"].addForce(Vec2(0, 50))
 
     def delEffect(self):
@@ -107,7 +107,7 @@ class Opponent:
 
         # 충격받음
         self.component["PHYSIC"].addForce(Vec2(1000, 0))
-        if self.component["PHYSIC"].getAccel().y < 500:
+        if self.component["PHYSIC"].getAccel().y < 500 and self.pos.y<250 :
             self.component["PHYSIC"].addForce(Vec2(0, 250))
         self.attackRelease()
 
@@ -121,7 +121,7 @@ class Opponent:
         # 충격받음
         self.combo = False
         self.component["PHYSIC"].addForce(Vec2(1000, 0))
-        if self.component["PHYSIC"].getAccel().y < 500:
+        if self.component["PHYSIC"].getAccel().y < 500 and self.pos.y<250 :
             self.component["PHYSIC"].addForce(Vec2(0, 250))
 
         self.changeEffect("POINT")

@@ -192,9 +192,14 @@ class Attack_down:
         _instance.ani.update()
         Attack_down.update_key(_instance)
 
+        # 콤보 공격
         if _instance.combo :
             _instance.addForce(Vec2(3000,0))
             _instance.combo = False
+
+        # 무콤 방지
+        if _instance.getPos().x > 650 : _instance.pos.x = 650
+
 
     @staticmethod
     def render(_instance):
