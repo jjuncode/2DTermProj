@@ -6,7 +6,7 @@ import pico2d
 class LevelBackground:
     def __init__(self):
         self.pos = Vec2(400,300)
-        self.cur_image = load_image(CreatePath('bg_level_select.png'))
+        self.cur_image = load_image(CreatePath('bg_level_background.png'))
 
     def render(self):
         self.cur_image.draw(self.pos.x,self.pos.y,800,600)

@@ -32,6 +32,6 @@ class OBJ(Enum):
     kTitle_fence = 6
     kTitle_logo = 7
 
-    kLevel_background = 8
-    kLevel_level = 9
+    kLevel_level = 8
+    kLevel_background = 9
     END = 10
