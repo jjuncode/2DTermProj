@@ -22,4 +22,4 @@ class scene_title(scene):
 
     def updateKey(self):
         self.acc += TimeMgr.GetDt()
-        if self.acc > 3.0 : self.sceneChange(scene_level())
+        if self.acc > 3.0 : self.sceneChange(scene_level(1))

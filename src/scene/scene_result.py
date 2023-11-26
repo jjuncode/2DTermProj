@@ -11,6 +11,7 @@ class scene_result(scene):
     def __init__(self, _result):
         super().__init__()
         # Background
+        self.result = _result
         if _result == "DEFEAT" :
             background = BackGround("RESULT_DEFEAT")
             self.obj[OBJ.kBackground.value].append(background)
@@ -21,5 +22,8 @@ class scene_result(scene):
     def updateKey(self):
         from src.scene.scene_level_select import scene_level
         if IsTapKey(SDLK_SPACE):
-            self.sceneChange(scene_level())
+            if self.result == "DEFEAT":
+                self.sceneChange(scene_level(1))
+            else :
+                self.sceneChange(scene_level(2))
             SetKeyExcept(SDLK_SPACE)

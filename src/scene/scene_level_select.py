@@ -12,10 +12,10 @@ from src.mgr.KeyMgr import IsTapKey, SetKeyExcept
 
 class scene_level(scene):
 
-    def __init__(self):
+    def __init__(self, _max_level):
         super().__init__()
         self.obj[OBJ.kLevel_background.value].append(LevelBackground())
-        self.obj[OBJ.kLevel_level.value].append(LevelSelect())
+        self.obj[OBJ.kLevel_level.value].append(LevelSelect(_max_level))
 
     def updateKey(self):
         if IsTapKey(SDLK_SPACE) :
