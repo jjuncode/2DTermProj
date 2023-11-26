@@ -7,7 +7,9 @@ from src.scene.scene_play import scene_play
 
 from src.object.background.level_background import LevelBackground
 from src.object.background.level_select import LevelSelect
-from src.mgr.KeyMgr import IsTapKey
+from src.mgr.KeyMgr import IsTapKey, SetKeyExcept
+
+
 class scene_level(scene):
 
     def __init__(self):
@@ -18,3 +20,5 @@ class scene_level(scene):
     def updateKey(self):
         if IsTapKey(SDLK_SPACE) :
             self.sceneChange(scene_play())
+            SetKeyExcept(SDLK_SPACE)
+

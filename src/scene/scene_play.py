@@ -21,7 +21,7 @@ class scene_play(scene):
         # Opponent
         opponent = Opponent()
         sword_opponent = Sword(opponent, Vec2(opponent.pos.x, opponent.pos.y))
-        sword_opponent.setDamage(1)
+        sword_opponent.setDamage(1.2)
 
         self.obj[OBJ.kPlayer.value].append(player)
         self.obj[OBJ.kPlayer_sword.value].append(sword_player)
