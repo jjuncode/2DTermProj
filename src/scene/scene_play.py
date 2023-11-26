@@ -1,3 +1,7 @@
+from sdl2 import SDLK_BACKSPACE
+
+from src.mgr.KeyMgr import IsTapKey
+from src.object.background.level_select import LevelSelect
 from src.scene.scene import scene
 from src.object.player import Player
 from src.object.background.background import BackGround
@@ -30,3 +34,9 @@ class scene_play(scene):
         self.obj[OBJ.kOpponent_sword.value].append(sword_opponent)
 
         self.obj[OBJ.kBackground.value].append(background)
+
+    def updateKey(self):
+        from src.scene.scene_level_select import scene_level
+        if IsTapKey(SDLK_BACKSPACE):
+            level = LevelSelect.getMaxLevel()
+            self.sceneChange(scene_level(level))
