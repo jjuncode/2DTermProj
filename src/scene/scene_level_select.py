@@ -1,12 +1,11 @@
-from sdl2 import SDLK_SPACE,SDLK_DOWN
-from pico2d import draw_rectangle
+from sdl2 import SDLK_SPACE
 from src.struct.struct import OBJ
 
 from src.scene.scene import scene
 from src.scene.scene_play import scene_play
 
-from src.object.background.level_background import LevelBackground
-from src.object.background.level_select import LevelSelect
+from src.object.level_background import LevelBackground
+from src.object.level_select import LevelSelect
 from src.mgr.KeyMgr import IsTapKey, SetKeyExcept
 
 

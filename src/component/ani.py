@@ -3,7 +3,7 @@ from pico2d import load_image
 from src.mgr.TimeMgr import TimeMgr
 
 def CreatePath(_path):
-    return "../../resource/" +_path
+    return "../resource/" +_path
 class Ani(Component):
     def __init__(self,_owner,_pos,_path,_max_frame,_offset_x,_offset_y,_acc_time,draw_size, _composite=False):
         super().__init__(_owner,_pos)

@@ -1,6 +1,6 @@
+from src.component.ani import CreatePath
 from src.struct.struct import Vec2
 from pico2d import load_image
-from src.component.ani import CreatePath
 
 class BackGround:
     image_background = None

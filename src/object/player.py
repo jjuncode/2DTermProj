@@ -1,7 +1,3 @@
-from pico2d import load_image
-from sdl2 import SDLK_e
-
-from src.mgr.KeyMgr import IsTapKey
 from src.mgr.TimeMgr import TimeMgr
 from src.scene.scene_result import scene_result
 from src.struct.struct import Vec2
@@ -9,7 +5,7 @@ from src.component.ani import Ani
 from src.component.effect import Effect
 
 from src.component.collider import Collider
-from src.component.stateMachine import StatePlayer, Idle, Groggy
+from src.component.stateMachine import StatePlayer
 from src.component.physic import Physic
 from src.component.ui import UI
 
@@ -100,7 +96,7 @@ class Player:
 
         # 충격받음
         self.component["PHYSIC"].addForce(Vec2(-1000, 0))
-        if self.component["PHYSIC"].getAccel().y < 500and self.pos.y<250 :
+        if self.component["PHYSIC"].getAccel().y < 500 and self.pos.y<250 :
             self.component["PHYSIC"].addForce(Vec2(0, 250))
 
         # 상태해제

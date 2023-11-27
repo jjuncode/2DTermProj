@@ -1,10 +1,10 @@
 from sdl2 import SDLK_BACKSPACE
 
 from src.mgr.KeyMgr import IsTapKey
-from src.object.background.level_select import LevelSelect
+from src.object.level_select import LevelSelect
 from src.scene.scene import scene
 from src.object.player import Player
-from src.object.background.background import BackGround
+from src.object.background import BackGround
 from src.object.sword import Sword
 from src.struct.struct import Vec2
 from src.object.opponent import Opponent

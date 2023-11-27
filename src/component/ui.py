@@ -10,8 +10,8 @@ class UI(Component):
     def __init__(self, _owner, _pos):
         super().__init__(_owner, _pos)
         global hp_bg, hp_value
-        hp_bg = load_image(CreatePath("health_bar.png"))
-        hp_value = load_image(CreatePath("health_bar_value.png"))
+        hp_bg = load_image(CreatePath('health_bar.png'))
+        hp_value = load_image(CreatePath('health_bar_value.png'))
         self.hp_bg = hp_bg
         self.hp_value = hp_value
         self.hp_bg_size = Vec2(590,144)

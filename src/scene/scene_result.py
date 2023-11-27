@@ -1,7 +1,7 @@
 from sdl2 import SDLK_SPACE
 
 from src.scene.scene import scene
-from src.object.background.background import BackGround
+from src.object.background import BackGround
 from src.struct.struct import OBJ
 from src.mgr.KeyMgr import IsTapKey, SetKeyExcept
 
