@@ -12,7 +12,7 @@ from src.struct.struct import OBJ
 
 class scene_play(scene):
 
-    def __init__(self):
+    def __init__(self,_level):
         super().__init__()
         # Background
         background = BackGround("BACKGROUND")
@@ -23,9 +23,14 @@ class scene_play(scene):
         sword_player.setDamage(0.5)
 
         # Opponent
-        opponent = Opponent()
-        sword_opponent = Sword(opponent, Vec2(opponent.pos.x, opponent.pos.y))
-        sword_opponent.setDamage(1.2)
+        if _level == 1 :
+            opponent = Opponent(0.15,2,_level)
+            sword_opponent = Sword(opponent, Vec2(opponent.pos.x, opponent.pos.y))
+            sword_opponent.setDamage(1.2)
+        elif _level == 2 :
+            opponent = Opponent(0.125, 1.5,_level)
+            sword_opponent = Sword(opponent, Vec2(opponent.pos.x, opponent.pos.y))
+            sword_opponent.setDamage(2)
 
         self.obj[OBJ.kPlayer.value].append(player)
         self.obj[OBJ.kPlayer_sword.value].append(sword_player)

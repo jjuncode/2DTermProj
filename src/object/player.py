@@ -17,6 +17,10 @@ class Player:
         self.hp = 100
         self.combo = False
 
+        self.acc_parry = 0.0
+        self.can_parry = True
+        self.cooltime_parry = 1.0
+
         # < Component >
         self.component = {}
 

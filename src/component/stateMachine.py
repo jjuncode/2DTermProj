@@ -135,6 +135,8 @@ class Attack_up:
     def init(_instance):
         _instance.ani.setAni(ANI_ATTACK_UP)
         _instance.ani.resetAni()
+        if not _instance.can_parry :
+            _instance.setGroggy()
 
     @staticmethod
     def update(_instance):
@@ -148,7 +150,8 @@ class Attack_up:
 
     @staticmethod
     def exit(_instance):
-        pass
+        _instance.can_parry = False
+        _instance.acc_parry = 0.0
 
     @staticmethod
     def update_key(_instance):
@@ -241,8 +244,8 @@ class StatePlayer:
         self.cur_state = Idle
         self.cur_state.init(self.instance)
         self.transition = {
-            Idle : { SDLK_e :Attack_down, SDLK_q : Attack_up, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run,SDLK_SPACE : Jump},
-            Run : {SDLK_e : Attack_down, SDLK_q : Attack_up,"KEY_NONE":Idle,SDLK_SPACE : Jump},
+            Idle : { SDLK_e :Attack_down, SDLK_q : Attack_up, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run,SDLK_SPACE : Jump,"GROGGY" : Groggy},
+            Run : {SDLK_e : Attack_down, SDLK_q : Attack_up,"KEY_NONE":Idle,SDLK_SPACE : Jump,"GROGGY" : Groggy},
             Attack_up : { SDLK_e :Attack_down, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run, "KEY_NONE":Idle,SDLK_SPACE : Jump,"GROGGY" : Groggy},
             Attack_down: {SDLK_q: Attack_up, SDLK_w: Run, SDLK_s: Run, SDLK_a: Run, SDLK_d: Run, "KEY_NONE":Idle,SDLK_SPACE : Jump,"GROGGY" : Groggy},
             Jump : {"GROUND" : Idle, SDLK_w : Run,SDLK_s:Run, SDLK_a : Run, SDLK_d : Run},
@@ -254,6 +257,9 @@ class StatePlayer:
         self.update_key()
         self.change_state(None)
 
+        self.instance.acc_parry += TimeMgr.GetDt()
+        if self.instance.acc_parry > self.instance.cooltime_parry :
+            self.instance.can_parry = True
 
     def render(self):
         self.cur_state.render(self.instance)

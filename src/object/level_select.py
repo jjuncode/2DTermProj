@@ -10,6 +10,7 @@ class LevelSelect:
     level1 = None
     level2 = None
     max_level = 0
+    cur_level = 0
 
     def __init__(self,_max_level):
         self.pos = Vec2(400,450)
@@ -37,14 +38,23 @@ class LevelSelect:
         if LevelSelect.max_level == 2 :
             # max level이 2일 때
             # 2레벨까지 선택가능
-            if self.cur_level % 2 == 0 : self.cur_image = LevelSelect.level2
-            else: self.cur_image = LevelSelect.level1
+            if self.cur_level % 2 == 0 :
+                self.cur_image = LevelSelect.level2
+                LevelSelect.cur_level = 2
+            else:
+                self.cur_image = LevelSelect.level1
+                LevelSelect.cur_level = 1
 
         elif LevelSelect.max_level == 1 :
             # max level이 1일때
             # 1레벨만 선택가능
             self.cur_image = LevelSelect.level1
+            LevelSelect.cur_level = 1
 
     @staticmethod
     def getMaxLevel():
         return LevelSelect.max_level
+
+    @staticmethod
+    def getCurLevel():
+        return LevelSelect.cur_level

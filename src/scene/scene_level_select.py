@@ -18,6 +18,7 @@ class scene_level(scene):
 
     def updateKey(self):
         if IsTapKey(SDLK_SPACE) :
-            self.sceneChange(scene_play())
+            level = LevelSelect.getCurLevel()
+            self.sceneChange(scene_play(level))
             SetKeyExcept(SDLK_SPACE)
 

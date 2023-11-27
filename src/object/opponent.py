@@ -14,15 +14,18 @@ import random
 
 
 class Opponent:
-    def __init__(self):
+    def __init__(self,_act_time, _parry_time,_level):
         self.pos = Vec2(600, 300)
         self.speed = 200
         self.dir = -1  # 음의 x축방향이 정면
         self.hp = 100
+
         self.acc_parry = 0.0
         self.can_parry = True
-        self.cooltime_parry = 2.0
+        self.cooltime_parry = _parry_time
+
         self.combo = False
+        self.act_time = _act_time
 
         # < Component >
         self.component = {}
@@ -30,8 +33,13 @@ class Opponent:
         # animation
         self.cur_ani = 0
         self.ani_reset = False
-        self.ani = Ani(self, self.pos, "Opp.png", [8, 12, 7, 7], [128, 128, 200, 200], [130, 120, 203, 203]
-                       , 0.15, Vec2(3, 3), True)
+
+        if _level == 1 :
+            self.ani = Ani(self, self.pos, "Opp1.png", [8, 12, 7, 7], [128, 128, 200, 200], [130, 120, 203, 203]
+                           , self.act_time, Vec2(3, 3), True)
+        elif _level == 2 :
+            self.ani = Ani(self, self.pos, "Opp2.png", [8, 12, 7, 7], [128, 128, 200, 200], [130, 120, 203, 203]
+                           , self.act_time, Vec2(3, 3), True)
         self.component["ANI"] = self.ani
 
         # collider
