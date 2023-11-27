@@ -28,7 +28,7 @@ class scene_play(scene):
             sword_opponent = Sword(opponent, Vec2(opponent.pos.x, opponent.pos.y))
             sword_opponent.setDamage(1.2)
         elif _level == 2 :
-            opponent = Opponent(0.125, 1.5,_level)
+            opponent = Opponent(0.1125, 1.5,_level)
             sword_opponent = Sword(opponent, Vec2(opponent.pos.x, opponent.pos.y))
             sword_opponent.setDamage(2)
 
