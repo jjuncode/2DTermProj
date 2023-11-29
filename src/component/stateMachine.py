@@ -95,7 +95,6 @@ class Run:
             _instance.pos.x -= +_instance.speed * TimeMgr.GetDt()
             if IsKey(SDLK_s):
                 _instance.pos.x -= +_instance.speed * 1.5 * TimeMgr.GetDt()
-                _instance.addForce(Vec2(-10,3))
 
         if isNoneKey((SDLK_a,SDLK_d,SDLK_w,SDLK_s)):
             _instance.state.change_state("KEY_NONE")
