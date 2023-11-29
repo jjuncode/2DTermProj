@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1ad797a1-dc8c-4d9e-92e7-bbec8eb8fd22" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Character.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/Character.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Opp1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/Opp1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Opp2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/Opp2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/bg_level_background.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/bg_level_background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/bg_result_defeat.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/bg_result_defeat.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/bg_result_win.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/bg_result_win.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/bg_streetFighter.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/bg_streetFighter.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/bg_streetFighter2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/bg_streetFighter2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/effect_blood.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/effect_blood.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/effect_point.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/effect_point.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/effect_result.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/effect_result.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/health_bar.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/health_bar.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/health_bar_value.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/health_bar_value.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/hit_sound.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/hit_sound.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/level.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/level.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/level2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/level2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/parring_purple.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/parring_purple.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/parring_red.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/parring_red.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/parrying_sound.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/parrying_sound.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/slash_purple.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/slash_purple.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/spark.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/spark.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/spr_dragon_slash.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/spr_dragon_slash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/spr_pickuparrow_anim.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/spr_pickuparrow_anim.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/title_background.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/title_background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/title_fence.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/title_fence.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/title_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/title_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/ani.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ani.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/behavior_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/behavior_tree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/collider.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/collider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/component.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/component.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/effect.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/effect.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/physic.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/physic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/stateMachine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/stateMachine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mgr/KeyMgr.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/KeyMgr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mgr/SceneMgr.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/SceneMgr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mgr/TimeMgr.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/TimeMgr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/object/background.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/background.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/object/level_background.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/level_background.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/object/level_select.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/level_select.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/object/opponent.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/opponent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/object/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/object/sword.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sword.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/object/title_background.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/title_background.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/object/title_fence.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/title_fence.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/object/title_logo.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/title_logo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scene/scene.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scene/scene_level_select.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene_level_select.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scene/scene_play.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene_play.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scene/scene_result.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene_result.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scene/scene_title.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene_title.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/struct/struct.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2YrBL5muycBLuZnARFo0DTz06X9" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1ad797a1-dc8c-4d9e-92e7-bbec8eb8fd22" name="Changes" comment="" />
+      <created>1701273758565</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1701273758565</updated>
+    </task>
+    <servers />
+  </component>
+</project>
