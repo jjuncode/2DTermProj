@@ -1,3 +1,5 @@
+from pico2d import load_wav
+
 from TimeMgr import TimeMgr
 from mystruct import OBJ
 
@@ -10,6 +12,7 @@ from title_logo import TitleLogo
 
 
 class scene_title(scene):
+    bgm = None
 
     def __init__(self):
         super().__init__()
@@ -17,7 +20,11 @@ class scene_title(scene):
         self.obj[OBJ.kTitle_fence.value].append(TitleFence())
         self.obj[OBJ.kTitle_logo.value].append(TitleLogo())
         self.acc = 0.0
-
+        if scene_title.bgm == None :
+            scene_title.bgm = load_wav("resource/parrying_sound.wav")
     def updateKey(self):
         self.acc += TimeMgr.GetDt()
-        if self.acc > 3.0 : self.sceneChange(scene_level(1))
+        if self.acc > 3.0 :
+            self.sceneChange(scene_level(1))
+            self.bgm.play()
+            self.bgm.set_volume(64)

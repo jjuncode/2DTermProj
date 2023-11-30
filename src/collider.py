@@ -13,8 +13,9 @@ class Collider(Component) :
         self.checkColl()
 
     def render(self):
-        draw_rectangle(self.pos.x - self.scale.x , self.pos.y + self.scale.y
-                       , self.pos.x + self.scale.x , self.pos.y - self.scale.y )
+        # draw_rectangle(self.pos.x - self.scale.x , self.pos.y + self.scale.y
+        #                , self.pos.x + self.scale.x , self.pos.y - self.scale.y )
+        pass
 
     def setCollPair(self,rhs):
         self.collision_pair = rhs

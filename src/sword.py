@@ -15,13 +15,16 @@ origin_collider_size = Vec2(0, 0)
 class Sword(Component):
     sound_parry = None
     sound_hit = None
+
     def __init__(self, _owner, _pos):
         super().__init__(_owner, _pos)
 
         if Sword.sound_parry == None:
-            Sword.sound_parry = pico2d.load_music("resource/parrying_sound.mp3")
+            Sword.sound_parry = pico2d.load_wav("resource/parrying_sound.wav")
+            Sword.sound_parry.set_volume(64)
         if Sword.sound_hit == None:
-            Sword.sound_hit = pico2d.load_music("resource/hit_sound.mp3")
+            Sword.sound_hit = pico2d.load_wav("resource/hit_sound.wav")
+            Sword.sound_hit.set_volume(64)
 
         self.damage = 2
         self.is_paryying = False

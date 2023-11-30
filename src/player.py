@@ -1,10 +1,11 @@
 from TimeMgr import TimeMgr
 from scene_result import scene_result
-from mystruct import Vec2
+from mystruct import Vec2, OBJ
 from ani import Ani
 from effect import Effect
 
 from collider import Collider
+from src.opponent import Opponent
 from stateMachine import StatePlayer
 from physic import Physic
 from ui import UI
@@ -121,6 +122,7 @@ class Player:
 
     def defeat(self):
         from SceneMgr import SceneMgr
+        SceneMgr.getCurScene().getObj(OBJ.kOpponent)[0].delVolume()
         SceneMgr.getCurScene().sceneChange(scene_result("DEFEAT"))
 
     def setGroggy(self):

@@ -1,7 +1,7 @@
 from sdl2 import SDLK_DOWN, SDLK_UP
 
 from mystruct import Vec2
-from pico2d import load_image
+from pico2d import load_image, load_music
 from KeyMgr import IsTapKey, SetKeyNone
 
 

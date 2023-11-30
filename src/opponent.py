@@ -1,3 +1,5 @@
+from pico2d import load_music, load_wav
+
 from TimeMgr import TimeMgr
 from scene_result import scene_result
 from mystruct import Vec2, OBJ
@@ -13,6 +15,9 @@ from effect import Effect
 
 
 class Opponent:
+    level1_bgm = None
+    level2_bgm = None
+
     def __init__(self,_act_time, _parry_time,_level):
         self.pos = Vec2(600, 300)
         self.speed = 200
@@ -33,12 +38,25 @@ class Opponent:
         self.cur_ani = 0
         self.ani_reset = False
 
+        if Opponent.level1_bgm == None :
+            Opponent.level1_bgm = load_wav('resource/level_easy.wav')
+
+        if Opponent.level2_bgm == None :
+            Opponent.level2_bgm = load_wav('resource/level_hard.wav')
+
         if _level == 1 :
             self.ani = Ani(self, self.pos, "Opp1.png", [8, 12, 7, 7], [128, 128, 200, 200], [130, 120, 203, 203]
                            , self.act_time, Vec2(3, 3), True)
+            Opponent.level1_bgm.repeat_play()
+            Opponent.level1_bgm.set_volume(64)
+
+
         elif _level == 2 :
             self.ani = Ani(self, self.pos, "Opp2.png", [8, 12, 7, 7], [128, 128, 200, 200], [130, 120, 203, 203]
                            , self.act_time, Vec2(3, 3), True)
+            Opponent.level2_bgm.repeat_play()
+            Opponent.level2_bgm.set_volume(64)
+
         self.component["ANI"] = self.ani
 
         # collider
@@ -266,3 +284,9 @@ class Opponent:
     def defeat(self):
         from SceneMgr import SceneMgr
         SceneMgr.getCurScene().sceneChange(scene_result("WIN"))
+        Opponent.level1_bgm = None
+        Opponent.level2_bgm = None
+
+    def delVolume(self):
+        Opponent.level1_bgm = None
+        Opponent.level2_bgm = None
