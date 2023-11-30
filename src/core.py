@@ -29,6 +29,7 @@ class Core:
 
     def render(self):
         self.SceneMgr.render()
+        KeyMgr.render()
         update_canvas()
         clear_canvas()
 

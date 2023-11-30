@@ -12,7 +12,12 @@ class KeyMgr:
 
     def __init__(self):
         self.key[SDLK_LSHIFT] = "NONE"
-        pass
+        KeyMgr.key_w = load_image("resource/key_w.png")
+        KeyMgr.key_a = load_image("resource/key_a.png")
+        KeyMgr.key_s = load_image("resource/key_s.png")
+        KeyMgr.key_d = load_image("resource/key_d.png")
+        KeyMgr.key_e = load_image("resource/key_e.png")
+        KeyMgr.key_q = load_image("resource/key_q.png")
 
     def update(self):
         event = get_events()
@@ -37,6 +42,15 @@ class KeyMgr:
             for _key, _value in self.key.items():
                 if self.key[_key] == "TAP":
                     self.key[_key] = "HOLD"
+
+    @staticmethod
+    def render():
+        if IsKey(SDLK_w): KeyMgr.key_w.draw(100,450, 100,100)
+        if IsKey(SDLK_a): KeyMgr.key_a.draw(225,450, 100,100)
+        if IsKey(SDLK_s): KeyMgr.key_s.draw(350,450, 100,100)
+        if IsKey(SDLK_d): KeyMgr.key_d.draw(475,450, 100,100)
+        if IsKey(SDLK_e): KeyMgr.key_e.draw(600,450, 100,100)
+        if IsKey(SDLK_q): KeyMgr.key_q.draw(725,450, 100,100)
 
 
 def GetKey(_key):
