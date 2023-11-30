@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ad797a1-dc8c-4d9e-92e7-bbec8eb8fd22" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/resource/key_a.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resource/key_d.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resource/key_e.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resource/key_q.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resource/key_s.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resource/key_w.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KeyMgr.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/KeyMgr.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
